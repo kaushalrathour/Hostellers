@@ -1,0 +1,107 @@
+<% layout("layouts/boilerplate") -%>
+<div class="card mb-4 mt-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="<%= listing.image %>" class="img-fluid rounded" alt="<%= listing.title %> Image">
+            <div class="card-overlay">
+                
+                
+            </div>
+        </div>
+        <div class="col-md-8">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Title:</strong><%= listing.title %></li>
+                <li class="list-group-item"><strong>Price:</strong> <%= listing.price.toLocaleString("en-IN") %> / month</li>
+                <li class="list-group-item"><strong>Description:</strong> <%= listing.description %></li>
+                <li class="list-group-item"><strong>For:</strong> <%= listing.forWho %>, <strong>Room Type:</strong> <%= listing.roomType %> </li>
+                <li class="list-group-item"><strong>Location:</strong> <%= listing.city %>, <%= listing.state %></li>
+                <li class="list-group-item"><strong>Address:</strong> <%= listing.address %></li>
+
+                <!-- <li class="list-group-item"><</li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!-- Assume you have the following sample reviews data -->
+<%
+const sampleReviews = [
+  { reviewer: { username: 'JohnDoe' }, rating: 4, comment: 'Amazing experience!' },
+  { reviewer: { username: 'JaneSmith' }, rating: 5, comment: 'Outstanding service!' },
+  { reviewer: { username: 'BobJohnson' }, rating: 3, comment: 'Good but could be better.' },
+  { reviewer: { username: 'JohnDoe' }, rating: 4, comment: 'Amazing experience!' },
+  { reviewer: { username: 'JaneSmith' }, rating: 5, comment: 'Outstanding service!' },
+  { reviewer: { username: 'BobJohnson' }, rating: 3, comment: 'Good but could be better.' },
+  { reviewer: { username: 'JohnDoe' }, rating: 4, comment: 'Amazing experience!' },
+  { reviewer: { username: 'JaneSmith' }, rating: 5, comment: 'Outstanding service!' },
+  { reviewer: { username: 'BobJohnson' }, rating: 3, comment: 'Good but could be better.' },
+  { reviewer: { username: 'JohnDoe' }, rating: 4, comment: 'Amazing experience!' },
+  { reviewer: { username: 'JaneSmith' }, rating: 5, comment: 'Outstanding service!' },
+  { reviewer: { username: 'BobJohnson' }, rating: 3, comment: 'Good but could be better.' },
+  { reviewer: { username: 'JohnDoe' }, rating: 4, comment: 'Amazing experience!' },
+  { reviewer: { username: 'JaneSmith' }, rating: 5, comment: 'Outstanding service!' },
+  { reviewer: { username: 'BobJohnson' }, rating: 3, comment: 'Good but could be better.' },
+  { reviewer: { username: 'JohnDoe' }, rating: 4, comment: 'Amazing experience!' },
+  { reviewer: { username: 'JaneSmith' }, rating: 5, comment: 'Outstanding service!' },
+  { reviewer: { username: 'BobJohnson' }, rating: 3, comment: 'Good but could be better.' },
+];
+%>
+
+<!-- Reviews Form Start -->
+
+<form action="/listings/<%=listing._id%>/review" method="POST">
+    <hr>
+        <h1>Leave a Review</h1>
+        <label for="rating" class="form-label">Rating</label>
+        <fieldset class="starability-slot">
+          <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+          <input type="radio" id="first-rate1" name="review[rating]" value="1"/>
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+
+        <label for="comment" class="form-label">Comments</label>
+        <br>
+        <textarea type="text" name="review[comment]" id="comment" class="form-control rounded" required rows="5"></textarea>
+        <br>
+
+        <button class="btn btn-light btn-outline-secondary mb-3">Submit</button>
+      </form>
+
+<!-- Reviews Form End -->
+
+ <!-- Reviews Start -->
+<% if (sampleReviews.length) { %>
+    <hr>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Reviews</h1>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-sm-2">
+            <% for (const review of sampleReviews) { %>
+                <div class="col mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title"><%= review.reviewer.username %></h4>
+                            <div class="starability-result" data-rating="<%= review.rating %>">
+                                Rated <%= review.rating %> stars
+                            </div>
+                            <p class="card-text"><%= review.comment %></p>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+
+    </div>
+<% } %>
+
+<!-- Reviews End -->

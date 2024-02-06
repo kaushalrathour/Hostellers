@@ -1,11 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <h1>Hi, I'm Root</h1>
-</body>
-</html>
+<% layout("layouts/boilerplate.ejs") -%>
+
+<!-- Hero Section -->
+<!-- <section>
+    <div class="hero-section">
+        <div class="hero-text">
+            <h1>Find Your Ideal Hostel with Hostellers</h1>
+        <h2>Discover Comfortable Student Living Near Your College</h2>
+        </div>
+    </div>
+</section> -->
+
+<div class="card  text-white mb-3 ba">
+    <!-- <img src="https://www.colorhexa.com/2f1c6a.png" class="card-img" alt="" height="350px"> -->
+    <div class="card-img-overlay d-flex  flex-column align-items-center text-center">
+      <b><h1 class="card-title text-center mt-5">Find Your Ideal Hostel with Hostellers</h1></b>
+      <br> <br> 
+      <p class="card-text text-center">Simplify your search for the perfect student accommodation near your college or university</p>
+      <a href="/listings" class="btn btn-primary">Explore</a>
+    </div>
+  </div>
+
+
+  <div class="card text-dark mb-3 mt-5">
+  <img src="https://wallpapers.com/images/featured/blank-white-7sn5o1woonmklx1h.jpg" class="card-img" alt="" height="200px">
+  <div class="card-img-overlay d-flex  flex-column align-items-center text-center mb-4">
+    <b><p class="card-text text-center mt-4">Hostellers offers comprehensive listings and flexible room options to ensure a seamless and enjoyable accommodation search experience tailored to the student lifestyle</p> </b>
+    <a href="/listings" class="btn btn-primary">Learn more</a>
+  </div>
+</div>
+<hr class="mb-3 mt-5">
+<div class="contact-form mt-5 mb-3">
+    <h1>Get in touch with us</h1>
+    <form action="">
+        <label class="form-label">Name</label>
+        <input type="text" placeholder="Your name" class="form-control"> <br>
+
+        <label class="form-label">Email*</label>
+        <input type="email" placeholder="Your email" class="form-control" required> <br>
+
+        <label class="form-label">Message*</label>
+        <input type="text" placeholder="Enter your message" class="form-control" required> <br>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+    <br>
+</div>
+

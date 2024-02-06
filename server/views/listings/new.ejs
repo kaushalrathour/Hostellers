@@ -1,0 +1,99 @@
+<% layout("/layouts/boilerplate") -%>
+
+<div class="row mt-3">
+        <div class="col-8 offset-2">
+            <h3 class="mb-3 mt-5">Create New Listing</h3>
+            <form action="/listings" method="POST" novalidate class="needs-validation"  >  <!--enctype="multipart/form-data"-->
+                
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" name="listing[title]" placeholder="Enter an interesting title"  class="form-control" id="title" required>
+                    <div class="invalid-feedback">
+                        Please provide a title for your listing.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="forWho" class="form-label">For Who</label>
+                    <select name="listing[forWho]" id="forWho" required class="form-select">
+                        <option value="boys" selected>Boys</option>
+                        <option value="girls">Girls</option>
+                        <option value="both">Both</option>
+                </select>
+                    <div class="invalid-feedback">
+                        Please choose a category for your listing.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" name="listing[city]" placeholder="Listing City" class="form-control" id="location" required> 
+                    <div class="invalid-feedback">
+                        Please specify the city.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="state" class="form-label">State</label>
+                    <input type="text" name="listing[state]" placeholder="Listing State" class="form-control" id="state" required> 
+                    <div class="invalid-feedback">
+                        Please specify the state.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" name="listing[address]" placeholder="Enter the full address" class="form-control" id="country" required>
+                    <div class="invalid-feedback">
+                        Please enter the full address.
+                    </div>
+                </div>
+        
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" name="listing[price]" placeholder="Set a price" class="form-control" id="price" required> 
+                    <div class="invalid-feedback">
+                        Please set a valid price (greater than 100).
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="text" name="listing[image]" placeholder="Select an image" class="form-control" id="image" accept=".png, .jpg, .jpeg" size="3000000" required>
+                    <div class="invalid-feedback">
+                        Please upload an image for your listing.
+                    </div>
+                </div>   
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <input type="text" name="listing[description]" placeholder="Describe your listing" class="form-control" id="description" required>
+                    <div class="invalid-feedback">
+                        Please enter a description for your listing.
+                    </div>
+                </div>
+        
+                <div class="mb-3">
+                    <label for="roomType" class="form-label">Type</label>
+                    <select name="listing[roomType]" id="roomType" required class="form-select">
+                        <option value="single" selected>Single Bed</option>
+                        <option value="double">Double Bed</option>
+                        <option value="triple">Triple Bed</option>
+                        <option value="dormitory">Dormitory</option>
+                </select>
+                    <div class="invalid-feedback">
+                        Please choose a type for your listing.
+                    </div>
+                </div>
+        
+                       
+        
+                
+                
+                
+                <button class="btn btn-primary mb-3" style="border: none;">Add</button>
+            </form>
+        </div>
+    </div>
+    
+</section>
