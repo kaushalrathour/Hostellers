@@ -1,30 +1,41 @@
 <% layout("layouts/boilerplate") -%>
+<%let facilities = ["WiFi", "Parking", "Gym", "Laundry", "Air Conditioning", "Heating", "Kitchen", "TV", "Mess", "Washroom"]%>
 <div class="card mb-4 mt-3">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="<%= listing.image %>" class="img-fluid rounded" alt="<%= listing.title %> Image">
-            <div class="card-overlay">
-                
-                
-            </div>
+            <img src="<%= listing.image %>" class="img-fluid rounded" alt="<%= listing.title %> Image" style="height: 350px; width: 100%;">
+            <!-- <div class="card-overlay"></div> -->
         </div>
         <div class="col-md-8">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><strong>Title:</strong><%= listing.title %></li>
-                <li class="list-group-item"><strong>Price:</strong> <%= listing.price.toLocaleString("en-IN") %> / month</li>
-                <li class="list-group-item"><strong>Description:</strong> <%= listing.description %></li>
-                <li class="list-group-item"><strong>For:</strong> <%= listing.forWho %>, <strong>Room Type:</strong> <%= listing.roomType %> </li>
+                <li class="list-group-item"><strong>Price:</strong> <%= listing.price.toLocaleString("en-IN") %> </li>  <!-- /month -->
+                <li class="list-group-item"><strong>For:</strong> <%= listing.forWho === "both"? "Both(Girls and Boys)": listing.forWho %>, <strong>Room Type:</strong> <%= listing.roomType %> </li>
                 <li class="list-group-item"><strong>Location:</strong> <%= listing.city %>, <%= listing.state %></li>
                 <li class="list-group-item"><strong>Address:</strong> <%= listing.address %></li>
-
-                <!-- <li class="list-group-item"><</li> -->
+                <li class="list-group-item">
+                    <strong>Facilities:</strong>
+                    <% for (const facility of facilities) { %>
+                        <span class="badge bg-secondary"><%= facility %></span>
+                    <% } %>
+                </li>
+                <li class="list-group-item"><strong>Description:</strong> <%= listing.description %></li>
+                <!-- Update and Delete Buttons -->
+                <li class="list-group-item">
+                    <form action="/listings/<%= listing._id %>/edit" method="GET" class="d-inline">
+                        <button type="submit" class="btn btn-warning me-2">Update</button>
+                    </form>
+                    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </li>
             </ul>
         </div>
+        
     </div>
 </div>
 
 
-<!-- Assume you have the following sample reviews data -->
 <%
 const sampleReviews = [
   { reviewer: { username: 'JohnDoe' }, rating: 4, comment: 'Amazing experience!' },

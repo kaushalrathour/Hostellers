@@ -1,2 +1,4 @@
 client/hostellers/node_modules/
 server/node_modules/
+server/rough.ejs
+server/rough.js

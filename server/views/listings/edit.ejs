@@ -1,0 +1,138 @@
+<% layout("/layouts/boilerplate") -%>
+
+<div class="row mt-3">
+    <div class="col-8 offset-2">
+        <h3 class="mb-3 mt-5">Edit Listing</h3>
+        <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" novalidate class="needs-validation">
+
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" id="title" required>
+                <div class="invalid-feedback">
+                    Please provide a title for your listing.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="forWho" class="form-label">For Who</label>
+                <select name="listing[forWho]" id="forWho" required class="form-select">
+                    <option value="Boys" <%= listing.forWho === 'boys' ? 'selected' : '' %>>Boys</option>
+                    <option value="Girls" <%= listing.forWho === 'girls' ? 'selected' : '' %>>Girls</option>
+                    <option value="Both" <%= listing.forWho === 'both' ? 'selected' : '' %>>Both</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please choose a category for your listing.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="city" class="form-label">City</label>
+                <input type="text" name="listing[city]" value="<%= listing.city %>" class="form-control" id="city" required>
+                <div class="invalid-feedback">
+                    Please specify the city.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="state" class="form-label">State</label>
+                <input type="text" name="listing[state]" value="<%= listing.state %>" class="form-control" id="state" required>
+                <div class="invalid-feedback">
+                    Please specify the state.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" name="listing[address]" value="<%= listing.address %>" class="form-control" id="address" required>
+                <div class="invalid-feedback">
+                    Please enter the full address.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="text" name="listing[price]" value="<%= listing.price %>" class="form-control" id="price" required>
+                <div class="invalid-feedback">
+                    Please set a valid price (greater than 100).
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input type="text" name="listing[image]" value="<%= listing.image %>" class="form-control" id="image" accept=".png, .jpg, .jpeg" size="3000000" required>
+                <div class="invalid-feedback">
+                    Please upload an image for your listing.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" name="listing[description]" value="<%= listing.description %>" class="form-control" id="description" required>
+                <div class="invalid-feedback">
+                    Please enter a description for your listing.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="roomType" class="form-label">Type</label>
+                <select name="listing[roomType]" id="roomType" required class="form-select">
+                    <option value="Single" <%= listing.roomType === 'Single' ? 'selected' : '' %>>Single Bed</option>
+                    <option value="Double" <%= listing.roomType === 'Double' ? 'selected' : '' %>>Double Bed</option>
+                    <option value="Triple" <%= listing.roomType === 'Triple' ? 'selected' : '' %>>Triple Bed</option>
+                    <option value="Dormitory" <%= listing.roomType === 'Dormitory' ? 'selected' : '' %>>Dormitory</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please choose a type for your listing.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Facilities</label>
+                <div class="d-flex flex-wrap">
+                    <div class="form-check me-3">
+                        <label class="form-check-label" for="wifi">WiFi</label>
+                        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="wifi" id="wifi">
+                    </div>
+                    <div class="form-check me-3">
+                        <label class="form-check-label" for="parking">Parking</label>
+                        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="parking" id="parking">
+                    </div>
+                    <div class="form-check me-3">
+                        <label class="form-check-label" for="heating">Heating</label>
+                        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Heating" id="heating">
+                    </div>
+                    <div class="form-check me-3">
+                        <label class="form-check-label" for="washroom">Attached Washroom</label>
+                        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Washroom" id="washroom">
+                    </div>
+                    <div class="form-check me-3">
+                        <label class="form-check-label" for="kitchen">Kitchen</label>
+                        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Kitchen" id="kitchen">
+                    </div>
+                    <div class="form-check me-3">
+                        <label class="form-check-label" for="gym">Gym</label>
+                        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Gym" id="gym">
+                    </div>
+                    <div class="form-check me-3">
+                        <label class="form-check-label" for="laundry">Laundry</label>
+                        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Laundry" id="laundry">
+                    </div>
+                    <div class="form-check me-3">
+                        <label class="form-check-label" for="airconditioning">Air Conditioning</label>
+                        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Air Conditioning" id="airconditioning">
+                    </div>
+                    <div class="form-check me-3">
+                        <label class="form-check-label" for="mess">Mess</label>
+                        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Mess" id="mess">
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label" for="tv">TV</label>
+                        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="TV" id="tv">
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary mb-3" style="border: none;">Update</button>
+        </form>
+    </div>
+</div>

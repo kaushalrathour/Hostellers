@@ -1,5 +1,5 @@
 <% layout("/layouts/boilerplate") -%>
-
+<body>
 <div class="row mt-3">
         <div class="col-8 offset-2">
             <h3 class="mb-3 mt-5">Create New Listing</h3>
@@ -16,9 +16,9 @@
                 <div class="mb-3">
                     <label for="forWho" class="form-label">For Who</label>
                     <select name="listing[forWho]" id="forWho" required class="form-select">
-                        <option value="boys" selected>Boys</option>
-                        <option value="girls">Girls</option>
-                        <option value="both">Both</option>
+                        <option value="Boys" selected>Boys</option>
+                        <option value="Girls">Girls</option>
+                        <option value="Both">Both</option>
                 </select>
                     <div class="invalid-feedback">
                         Please choose a category for your listing.
@@ -76,24 +76,115 @@
                 <div class="mb-3">
                     <label for="roomType" class="form-label">Type</label>
                     <select name="listing[roomType]" id="roomType" required class="form-select">
-                        <option value="single" selected>Single Bed</option>
-                        <option value="double">Double Bed</option>
-                        <option value="triple">Triple Bed</option>
-                        <option value="dormitory">Dormitory</option>
+                        <option value="Single" selected>Single Bed</option>
+                        <option value="Double">Double Bed</option>
+                        <option value="Triple">Triple Bed</option>
+                        <option value="Dormitory">Dormitory</option>
                 </select>
                     <div class="invalid-feedback">
                         Please choose a type for your listing.
                     </div>
                 </div>
+
+    <!-- <div class="mb-3">
+    <label class="form-label">Facilities</label>
+    <div class="form-check">
+        <label class="form-check-label" for="wifi">WiFi</label>
+        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="wifi" id="wifi">
+    </div>
+    <div class="form-check">
+        <label class="form-check-label" for="parking">Parking</label>
+        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="parking" id="parking">
+    </div>
+    <div class="form-check">
+        <label class="form-check-label" for="heating">Heating</label>
+        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Heating" id="heating">
+    </div>
         
-                       
-        
-                
-                
-                
-                <button class="btn btn-primary mb-3" style="border: none;">Add</button>
-            </form>
+    <div class="form-check">
+        <label class="form-check-label" for="washroom">Attached Washroom</label>
+        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Washroom" id="washroom">
+    </div>
+
+    <div class="form-check">
+        <label class="form-check-label" for="kitchen">Kitchen</label>
+        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Kitchen" id="kitchen">
+    </div>
+
+    <div class="form-check">
+        <label class="form-check-label" for="gym">Gym</label>
+        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Gym" id="gym">
+    </div>
+
+    <div class="form-check">
+        <label class="form-check-label" for="laundry">Laundry</label>
+        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Laundry" id="laundry">
+    </div>            
+    
+    <div class="form-check">
+        <label class="form-check-label" for="airconditioning">Air Conditioning</label>
+        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Air Conditioning" id="airconditioning">
+    </div>
+    
+    <div class="form-check">
+        <label class="form-check-label" for="mess">Mess</label>
+        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Mess" id="mess">
+    </div>  
+    
+    <div class="form-check">
+        <label class="form-check-label" for="tv">TV</label>
+        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="TV" id="tv">
+    </div>  -->
+
+    <div class="mb-3">
+        <label class="form-label">Facilities</label>
+        <div class="d-flex flex-wrap">
+            <div class="form-check me-3">
+                <label class="form-check-label" for="wifi">WiFi</label>
+                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="wifi" id="wifi">
+            </div>
+            <div class="form-check me-3">
+                <label class="form-check-label" for="parking">Parking</label>
+                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="parking" id="parking">
+            </div>
+            <div class="form-check me-3">
+                <label class="form-check-label" for="heating">Heating</label>
+                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Heating" id="heating">
+            </div>
+            <div class="form-check me-3">
+                <label class="form-check-label" for="washroom">Attached Washroom</label>
+                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Washroom" id="washroom">
+            </div>
+            <div class="form-check me-3">
+                <label class="form-check-label" for="kitchen">Kitchen</label>
+                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Kitchen" id="kitchen">
+            </div>
+            <div class="form-check me-3">
+                <label class="form-check-label" for="gym">Gym</label>
+                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Gym" id="gym">
+            </div>
+            <div class="form-check me-3">
+                <label class="form-check-label" for="laundry">Laundry</label>
+                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Laundry" id="laundry">
+            </div>
+            <div class="form-check me-3">
+                <label class="form-check-label" for="airconditioning">Air Conditioning</label>
+                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Air Conditioning" id="airconditioning">
+            </div>
+            <div class="form-check me-3">
+                <label class="form-check-label" for="mess">Mess</label>
+                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Mess" id="mess">
+            </div>
+            <div class="form-check">
+                <label class="form-check-label" for="tv">TV</label>
+                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="TV" id="tv">
+            </div>
         </div>
     </div>
     
-</section>
+                <button class="btn btn-primary mb-3 mt-3" style="border: none;">Add</button>
+            </form>
+        </div>
+    </div>
+
+</body>

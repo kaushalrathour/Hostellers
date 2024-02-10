@@ -6,7 +6,7 @@ const listingSchema = new Schema ({
     title: String,
     forWho: {
         type: String,
-        enum: ["boys", "girls", "boys"]
+        enum: ["Boys", "Girls", "Both"]
     },
     city: String,
     state: String,
@@ -16,8 +16,12 @@ const listingSchema = new Schema ({
     description: String,
     roomType: {
         type: String,
-        enum: ["single", "double", "triple", "dormitory"]
+        enum: ["Single", "Double", "Triple", "Dormitory"]
     },
+    facilities: [{
+        type: String,
+        enum: ["WiFi", "Parking", "Gym", "Laundry", "Air Conditioning", "Heating", "Kitchen", "TV", "Mess", "Washroom"]
+    }],
 })
 
 module.exports = model("Listing", listingSchema);
