@@ -1,0 +1,30 @@
+<% layout("layouts/boilerplate") -%>
+
+<div class="card mb-4 mt-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            
+                <img src="https://www.pngkey.com/png/detail/52-523516_empty-profile-picture-circle.png" class="img-fluid rounded-circle" alt="username %> Profile Picture" style="height: 350px; width: 100%;">
+            
+                
+                
+            
+        </div>
+        <div class="col-md-8">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Name:</strong> <%= user.name %></li>
+                <li class="list-group-item"><strong>Email:</strong> <%= user.email %> </li>
+                <li class="list-group-item"><strong>Username:</strong> <%= user.username %></li>
+                <li class="list-group-item"><strong>Account Type:</strong> <%= user.accountType %></li>
+                <li class="list-group-item"><strong>Joined:</strong> <%= user.createdAt.toDateString() %></li>
+
+                <li class="list-group-item">
+                    <form action = "/account/edit" method="GET" class="d-inline">
+                        <button type="submit" class="btn btn-warning me-2">Edit Profile</button>
+                    </form>
+                </li>
+            </ul>
+            
+        </div>
+    </div>
+</div>

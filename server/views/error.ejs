@@ -1,5 +1,5 @@
 <% layout("layouts/boilerplate") %>
-<div class="d-flex align-items-center justify-content-center vh-100">
+<!-- <div class="d-flex align-items-center justify-content-center vh-100">
             <div class="text-center row">
                 <div class=" col-md-6">
                     <img src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569__340.jpg" alt=""
@@ -14,7 +14,24 @@
                 </div>
 
             </div>
+        </div> -->
+
+
+<!-- error.ejs -->
+<body>
+    <div class="container d-flex align-items-center justify-content-center min-vh-100">
+        <div class="jumbotron text-center">
+            <h1 class="display-4 text-danger">Error <%= status %></h1>
+            <p class="lead"><%= message %></p>
+            <hr class="my-4">
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="/" role="button">Go back to Home</a>
+            </p>
         </div>
+    </div>
+
+
+
 
 
 

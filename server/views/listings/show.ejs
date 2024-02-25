@@ -3,7 +3,7 @@
 <div class="card mb-4 mt-3">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="<%= listing.image %>" class="img-fluid rounded" alt="<%= listing.title %> Image" style="height: 350px; width: 100%;">
+            <img src="<%= listing.image %>" class="img-fluid rounded" alt="<%= listing.title %> Image" style="height: 430px; width: 100%;">
             <!-- <div class="card-overlay"></div> -->
         </div>
         <div class="col-md-8">
@@ -15,11 +15,26 @@
                 <li class="list-group-item"><strong>Address:</strong> <%= listing.address %></li>
                 <li class="list-group-item">
                     <strong>Facilities:</strong>
-                    <% for (const facility of facilities) { %>
-                        <span class="badge bg-secondary"><%= facility %></span>
-                    <% } %>
+                    
+                        <span class="badge bg-secondary"><%= listing.facilities.Gym %></span>
+                        <span class="badge bg-secondary"><%= listing.facilities.WiFi %></span>
+                        <span class="badge bg-secondary"><%= listing.facilities.Parking %></span>
+                        <span class="badge bg-secondary"><%= listing.facilities.Laundry %></span>
+                        <span class="badge bg-secondary"><%= listing.facilities.AC %></span>
+                        <span class="badge bg-secondary"><%= listing.facilities.Heating %></span>
+                        <span class="badge bg-secondary"><%= listing.facilities.Kitchen %></span>
+                        <span class="badge bg-secondary"><%= listing.facilities.TV %></span>
+                        <span class="badge bg-secondary"><%= listing.facilities.Mess %></span>
+                        <span class="badge bg-secondary"><%= listing.facilities.Washroom %></span>
+                        
+                    
                 </li>
+                <% if(1>0) {%>
+                    <li class="list-group-item"><strong>Near of College:</strong> <%= listing.nearCollege %></li>
+                <%}%>
                 <li class="list-group-item"><strong>Description:</strong> <%= listing.description %></li>
+                <li class="list-group-item"><strong>Total Number of Room:</strong> <%= listing.bedrooms %></li>
+                
                 <!-- Update and Delete Buttons -->
                 <li class="list-group-item">
                     <form action="/listings/<%= listing._id %>/edit" method="GET" class="d-inline">
@@ -90,22 +105,24 @@ const sampleReviews = [
 <!-- Reviews Form End -->
 
  <!-- Reviews Start -->
-<% if (sampleReviews.length) { %>
+<% if (listing.reviews.length) { %>
     <hr>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Reviews</h1>
 
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-sm-2">
-            <% for (const review of sampleReviews) { %>
+            <% for (const review of listing.reviews) { %>
                 <div class="col mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title"><%= review.reviewer.username %></h4>
+                            <h4 class="card-title"><%=review.by.name %></h4> <!---- < %= review.reviewer.username % > ---->
                             <div class="starability-result" data-rating="<%= review.rating %>">
                                 Rated <%= review.rating %> stars
                             </div>
                             <p class="card-text"><%= review.comment %></p>
+                            <form action="/listings/<%=listing._id%>/review/<%=review._id%>?_method=DELETE" method="POST">
                             <button class="btn btn-danger btn-sm">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>

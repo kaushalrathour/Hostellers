@@ -13,9 +13,21 @@ const userSchema = new Schema({
     },
     username: {
         type: String,
+        trim: true, 
         unique: true,
+        lowercase: true,
+    },
+    accountType: {
+        type: String,
+        enum: ["Personal", "Bussiness"],
+        default: "Personal",
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
     }
 });
+
 
 userSchema.plugin(passportLocalMongooese);
 

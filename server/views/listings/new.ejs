@@ -48,6 +48,12 @@
                         Please enter the full address.
                     </div>
                 </div>
+
+                <div class="mb-3">
+                    <label for="nearCollege" class="form-label">Is your college near another college? If yes, enter the college name</label>
+                    <input class="form-control" type="text" name="listing[nearCollege]" id="nearCollege" placeholder="College Name">
+                </div>
+                
         
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>
@@ -86,98 +92,57 @@
                     </div>
                 </div>
 
-    <!-- <div class="mb-3">
-    <label class="form-label">Facilities</label>
-    <div class="form-check">
-        <label class="form-check-label" for="wifi">WiFi</label>
-        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="wifi" id="wifi">
-    </div>
-    <div class="form-check">
-        <label class="form-check-label" for="parking">Parking</label>
-        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="parking" id="parking">
-    </div>
-    <div class="form-check">
-        <label class="form-check-label" for="heating">Heating</label>
-        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Heating" id="heating">
-    </div>
-        
-    <div class="form-check">
-        <label class="form-check-label" for="washroom">Attached Washroom</label>
-        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Washroom" id="washroom">
-    </div>
+                <div class="mb-3">
+                    <label for="bedrooms" class="form-label">Number of Bedrooms</label>
+                    <input type="number" name="listing[bedrooms]" placeholder="Enter the total number of bedrooms in hostel" class="form-control" id="bedrooms" required>
+                    <div class="invalid-feedback">
+                        Please enter the number of bedrooms for your listing.
+                    </div>
+                </div>
 
-    <div class="form-check">
-        <label class="form-check-label" for="kitchen">Kitchen</label>
-        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Kitchen" id="kitchen">
-    </div>
-
-    <div class="form-check">
-        <label class="form-check-label" for="gym">Gym</label>
-        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Gym" id="gym">
-    </div>
-
-    <div class="form-check">
-        <label class="form-check-label" for="laundry">Laundry</label>
-        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Laundry" id="laundry">
-    </div>            
-    
-    <div class="form-check">
-        <label class="form-check-label" for="airconditioning">Air Conditioning</label>
-        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Air Conditioning" id="airconditioning">
-    </div>
-    
-    <div class="form-check">
-        <label class="form-check-label" for="mess">Mess</label>
-        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Mess" id="mess">
-    </div>  
-    
-    <div class="form-check">
-        <label class="form-check-label" for="tv">TV</label>
-        <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="TV" id="tv">
-    </div>  -->
 
     <div class="mb-3">
         <label class="form-label">Facilities</label>
         <div class="d-flex flex-wrap">
             <div class="form-check me-3">
                 <label class="form-check-label" for="wifi">WiFi</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="wifi" id="wifi">
+                <input class="form-check-input" type="checkbox" name="listing[facilities][WiFi]" value="WiFi" id="wifi">
             </div>
             <div class="form-check me-3">
                 <label class="form-check-label" for="parking">Parking</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="parking" id="parking">
+                <input class="form-check-input" type="checkbox" name="listing[facilities][Parking]" value="Parking" id="parking">
             </div>
             <div class="form-check me-3">
                 <label class="form-check-label" for="heating">Heating</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Heating" id="heating">
+                <input class="form-check-input" type="checkbox" name="listing[facilities][Heating]" value="Heating" id="heating">
             </div>
             <div class="form-check me-3">
                 <label class="form-check-label" for="washroom">Attached Washroom</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Washroom" id="washroom">
+                <input class="form-check-input" type="checkbox" name="listing[facilities][Washroom]" value="Washroom" id="washroom">
             </div>
             <div class="form-check me-3">
                 <label class="form-check-label" for="kitchen">Kitchen</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Kitchen" id="kitchen">
+                <input class="form-check-input" type="checkbox" name="listing[facilities][Kitchen]" value="Kitchen" id="kitchen">
             </div>
             <div class="form-check me-3">
                 <label class="form-check-label" for="gym">Gym</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Gym" id="gym">
+                <input class="form-check-input" type="checkbox" name="listing[facilities][Gym]" value="Gym" id="gym">
             </div>
             <div class="form-check me-3">
                 <label class="form-check-label" for="laundry">Laundry</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Laundry" id="laundry">
+                <input class="form-check-input" type="checkbox" name="listing[facilities][Laundry]" value="Laundry" id="laundry">
             </div>
             <div class="form-check me-3">
                 <label class="form-check-label" for="airconditioning">Air Conditioning</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Air Conditioning" id="airconditioning">
+                <input class="form-check-input" type="checkbox" name="listing[facilities][AC]" value="Air Conditioning" id="airconditioning">
             </div>
             <div class="form-check me-3">
                 <label class="form-check-label" for="mess">Mess</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="Mess" id="mess">
+                <input class="form-check-input" type="checkbox" name="listing[facilities][Mess]" value="Mess" id="mess">
             </div>
             <div class="form-check">
                 <label class="form-check-label" for="tv">TV</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][]" value="TV" id="tv">
+                <input class="form-check-input" type="checkbox" name="listing[facilities][TV]" value="TV" id="tv">
             </div>
         </div>
     </div>
