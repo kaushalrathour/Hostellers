@@ -28,3 +28,29 @@
         </div>
     </div>
 </div>
+
+    <% if(listings && listings.length>0)  {%>
+        <hr class="mt-5">
+        <h1 class="text-center mb-3">Listings By: <strong><%=user.name%> <i>(@<%=user.username%>)</i></strong></h1>
+        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 mt-3">
+        <% for (let list of listings) { %>
+            <a href="/listings/<%=list.id%>" class="listing-link">
+                <div class="card col">
+                    <img src="<%=list.image%>" class="card-img-top" alt="Image Of <%=list.title%>" style="height: 20rem">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                        <strong><p class="card-text"><%=list.title%></strong> <br>
+                        &#x20B9;<%=list.price.toLocaleString("en-IN")%>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        <% } %>
+    </div>
+</div>
+    <% } else {%>
+        <hr class="mt-5">
+        <h1 class="text-center">No Listings</h1>
+        <hr>
+    <%}%>
+   

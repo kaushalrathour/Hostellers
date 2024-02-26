@@ -206,31 +206,44 @@ app.get("/login", (req, res) => {
 })
 
 app.post("/login", passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), 
-    async (req, res)=> {
+    wrapAsync(async (req, res)=> {
     console.log(req.user);
     req.flash("success", "Happy to see you again");
     res.redirect('/listings');
-  });
+  }));
 
-app.get("/account/edit", isLoggedIn,  async (req, res)=> {
+app.get("/account/edit", isLoggedIn,  wrapAsync(async (req, res)=> {
     res.render("user/edit.ejs");
-})
+}))
 
-// app.put("/:username", isLoggedIn, passport.authenticate("local",
-//  {failureRedirect: "/:username", failureFlash: true}),
-// async (req, res)=> {
-//     let {username, newPassword, accountType, email, } = req.body;
-// })
-app.get("/:username", async (req, res)=> {
+app.put("/:username", isLoggedIn, wrapAsync(async (req, res)=> {
+    let user = req.params.username;
+    let {username, email, name, accountType } = req.body.user;
+    username = username.replace(/\s/g, '');
+    let updatedUser = await User.findOneAndUpdate({username: user},
+         {$set: {username, email, name, accountType}}
+         ,{new: true} );
+    if(!updatedUser) {
+        req.flash("error", "Forbidden");
+        res.redirect("/login");
+    }
+    else{
+        req.flash("success", "Details updated successfully");
+        res.redirect(`/${updatedUser.username}`);
+    }
+    
+}))
+app.get("/:username", wrapAsync(async (req, res)=> {
     let user = await User.findOne({username: req.params.username});
     if(user) {
-        // res.send(user);
-        res.render("user/show.ejs", {user});
+        let listings = await Listing.find({owner: user._id}) || [];
+        res.render("user/show.ejs", {user, listings});
+        
     }else {
         req.flash("error", "No user found");
         res.redirect("/register");
     }
-}) 
+})) 
 
 
 // React testing 
@@ -250,7 +263,20 @@ async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/Hostellers');
 }
 
-
+app.use((err, req, res, next) =>{
+    console.log(err);
+    if(err.code === 11000 && err.keyPattern && err.keyPattern.email) {
+        req.flash("error", "Email is already in use!")
+        res.redirect("/account/edit");
+    }
+    else if (err.code === 11000 && err.keyPattern && err.keyPattern.username) {
+        req.flash("error", "Username is already in use");
+        res.redirect("/account/edit");
+    }
+    else {
+        next(err);
+    }
+})
 
 // Error Handling Middleware 
 app.use((err, req, res, next) =>{

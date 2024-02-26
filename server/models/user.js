@@ -19,7 +19,7 @@ const userSchema = new Schema({
     },
     accountType: {
         type: String,
-        enum: ["Personal", "Bussiness"],
+        enum: ["Personal", "Business"],
         default: "Personal",
     },
     createdAt: {
