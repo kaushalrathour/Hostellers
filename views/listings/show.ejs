@@ -3,11 +3,12 @@
 <div class="card mb-4 mt-3">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="<%= listing.image %>" class="img-fluid rounded" alt="<%= listing.title %> Image" style="height: 430px; width: 100%;">
+            <img src="<%= listing.image %>" class="img-fluid rounded" alt="<%= listing.title %> Image" style="height: 500px; width: 100%;">
             <!-- <div class="card-overlay"></div> -->
         </div>
         <div class="col-md-8">
             <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Listing By:</strong><%= listing.owner.name %> (<i><a href="/<%= listing.owner.username%>">@<%= listing.owner.username%></i></a>)</li>
                 <li class="list-group-item"><strong>Title:</strong><%= listing.title %></li>
                 <li class="list-group-item"><strong>Price:</strong> <%= listing.price.toLocaleString("en-IN") %> </li>  <!-- /month -->
                 <li class="list-group-item"><strong>For:</strong> <%= listing.forWho === "both"? "Both(Girls and Boys)": listing.forWho %>, <strong>Room Type:</strong> <%= listing.roomType %> </li>

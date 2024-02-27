@@ -15,6 +15,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const cors = require("cors");
 const listing = require("./models/listing.js");
+const { isLoggedIn, validateListing, saveCurrentUrl, getRedirectUrl } = require("./middlewares.js");
+
 let sessionOptions = {
     // store: store,
     secret: "mysecret",
@@ -46,16 +48,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-const validateListing = (req, res, next) => {
-    console.log("Validating Listing");
-    const { error } = listingSchema.validate(req.body);
-    if (error) {
-        console.log("Listing Error Triggered");
-        throw new ExpressError(400, error);
-    } else {
-        next();
-    }
-};
+
 
 app.use((req, res, next)=>{
     res.locals.success = req.flash("success");
@@ -65,33 +58,27 @@ app.use((req, res, next)=>{
     next();
 })
 
-let isLoggedIn = (req, res, next) => {
-    if(req.isAuthenticated()) {
-        next();
-    }
-    else {
-        req.flash("error", "You must login");
-        res.redirect("/login");
-    }
-}
-let ensureAccountOwner = (req, res, next) => {
-    if(req.user.username === req.params.username) {
-        next();
-    }else {
-        throw new ExpressError(403, "Access Denied");
-    }
-}
-
 app.get("/", (req, res)=> {
     res.render("home.ejs");
 })
 
 app.get("/home", (req,res) =>{
     res.redirect("/");
-})
+});
+
+app.get("/about", (req, res) => {
+    res.render("pages/about.ejs");
+});
+
+app.get("/privacy", (req, res) => {
+    res.render("pages/privacy.ejs");
+});
+app.get("/terms", (req, res) => {
+    res.render("pages/terms.ejs");
+});
 
 app.get("/listings", wrapAsync(async(req, res)=>{
-    let listings = await Listing.find({});
+    let listings = await Listing.find({}).populate("owner");
     res.render("listings/index.ejs", {listings});
     // res.send(listings);
 }))
@@ -112,7 +99,7 @@ app.get("/listings/new", isLoggedIn, (req, res)=> {
     res.render("listings/new.ejs")
 })
 
-app.get("/listings/:id", wrapAsync(async(req, res)=>{
+app.get("/listings/:id",  wrapAsync(async(req, res)=>{
     let {id} = req.params;
     let listing = await Listing.findById(id).populate({
         path: "reviews",
@@ -126,18 +113,17 @@ app.get("/listings/:id", wrapAsync(async(req, res)=>{
         res.redirect("/listings");
     }
     else {
-        // console.log(listing);
+        console.log(listing);
         res.render("listings/show.ejs", {listing});}
     
     
     // res.send(listing);
 }));
 
-app.get("/listings/:id/edit", isLoggedIn, wrapAsync(async(req, res)=>{
+app.get("/listings/:id/edit",  saveCurrentUrl, isLoggedIn, wrapAsync(async(req, res)=>{
     let {id} = req.params;
     let listing = await Listing.findById(id);
     res.render("listings/edit.ejs", {listing});
-    // res.send(listing);
 }));
 
 
@@ -165,7 +151,7 @@ app.put("/listings/:id", validateListing, wrapAsync(async (req, res)=>{
 }))
 
 // Review
-app.post("/listings/:id/review", isLoggedIn, async(req, res)=>{
+app.post("/listings/:id/review", saveCurrentUrl, isLoggedIn, async(req, res)=>{
     let {id} = req.params;
     let listing = await Listing.findById(id);
     if(!listing) {
@@ -179,27 +165,35 @@ app.post("/listings/:id/review", isLoggedIn, async(req, res)=>{
     res.redirect(`/listings/${id}`); 
 });
 
-app.delete("/listings/:id/review/:reviewId", async(req, res)=>{
+app.delete("/listings/:id/review/:reviewId", saveCurrentUrl, isLoggedIn, wrapAsync(async(req, res)=>{
     let { id, reviewId } = req.params;
     await Listing.findByIdAndUpdate(id, { $pull: { review: reviewId } });
     await Review.findByIdAndDelete(reviewId);
     // req.flash("success", "Review Deleted");
     res.redirect(`/listings/${id}`);
-});
+}));
 
 app.get("/register", (req, res)=> {
     res.render("user/register.ejs");
 })
 
-app.post("/register", wrapAsync(async (req, res)=>{
+app.post("/register", wrapAsync(async (req, res, next)=>{
     let {password} = req.body
     let user = req.body.user;
     user.username = user.username.replace(/\s/g, '');
-    let newUser = await User.register(req.body.user, password);
-    req.flash("success", `Welcome to Hostellers ,${newUser.name}`);
-    console.log(newUser);
-    res.redirect("/listings");
-}))
+    try {
+        let newUser = await User.register(req.body.user, password);
+        req.flash("success", `Welcome to Hostellers ,${newUser.name}`);
+        console.log(newUser);
+        res.redirect("/listings");
+    } catch (error) {
+        if (error.name === 'UserExistsError') {
+        req.flash("error", error.message);
+        return res.redirect("/register");
+    }else{
+        return next(error)
+    }
+}}));
 
 app.get("/login", (req, res) => {
     res.render("user/login.ejs");
@@ -207,10 +201,19 @@ app.get("/login", (req, res) => {
 
 app.post("/login", passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), 
     wrapAsync(async (req, res)=> {
-    console.log(req.user);
-    req.flash("success", "Happy to see you again");
-    res.redirect('/listings');
-  }));
+    // console.log("Redirect Url", redirectUrl);
+    req.flash("success", "Happy To See You Again");
+    res.redirect(getRedirectUrl() || "/listings");
+}));
+
+app.get("/logout", (req, res, next)=> {
+    req.isAuthenticated()
+        ? req.logout((err) => (err ? next(err) :
+         (req.flash("success", "Logged Out Successfully"),
+            res.redirect("/listings"))))
+        : (req.flash("error", "Hmm! Nice Try"),
+             res.redirect("/listings"));
+})
 
 app.get("/account/edit", isLoggedIn,  wrapAsync(async (req, res)=> {
     res.render("user/edit.ejs");
@@ -264,18 +267,22 @@ async function main() {
 }
 
 app.use((err, req, res, next) =>{
-    console.log(err);
+    // console.log(req.headers);
     if(err.code === 11000 && err.keyPattern && err.keyPattern.email) {
         req.flash("error", "Email is already in use!")
-        res.redirect("/account/edit");
+        res.redirect(req.headers.referer);
     }
     else if (err.code === 11000 && err.keyPattern && err.keyPattern.username) {
         req.flash("error", "Username is already in use");
-        res.redirect("/account/edit");
+        res.redirect(req.headers.referer);
     }
     else {
         next(err);
     }
+})
+
+app.all("*", (req, res)=> {
+    throw new ExpressError(404, "Page Not Found");
 })
 
 // Error Handling Middleware 
