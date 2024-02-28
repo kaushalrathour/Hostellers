@@ -36,3 +36,8 @@ module.exports.ensureAccountOwner = (req, res, next) => {
 module.exports.getRedirectUrl = () => {
     return redirectUrl;
 }
+
+module.exports.removeSpaces = (string) =>  {
+    console.log(string);
+    return string.replace(/\s/g, '');
+}

@@ -28,9 +28,9 @@
             </div>
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label for="accountType" class="form-label"><strong>Account Type</strong></label>
+                    <label for="accountType" class="form-label"><strong>Register As</strong></label>
                     <select name="user[accountType]" class="form-select" id="accountType" required>
-                        <option value="Personal" <%= currentUser.accountType === 'Personal' ? 'selected' : '' %>>Personal</option>
+                        <option value="Personal" <%= currentUser.accountType === 'Personal' ? 'selected' : '' %>>Student / Individual</option>
                         <option value="Business" <%= currentUser.accountType === 'Business' ? 'selected' : '' %>>Business</option>
                     </select>
                 </div>

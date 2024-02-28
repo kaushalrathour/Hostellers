@@ -7,15 +7,13 @@ const engine = require("ejs-mate");
 const session = require("express-session");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
-const Review = require("./models/review.js");
 const ExpressError = require("./utilities/ExpressError.js");
-const wrapAsync = require("./utilities/wrapAsync.js");
-const { listingSchema } = require("./schema.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const cors = require("cors");
-const listing = require("./models/listing.js");
-const { isLoggedIn, validateListing, saveCurrentUrl, getRedirectUrl } = require("./middlewares.js");
+const pagesRoute = require("./routes/pages.js");
+const listingsRoute = require("./routes/listings.js");
+const reviewsRoute = require("./routes/reviews.js");
+const usersRoute = require("./routes/users.js");
 
 let sessionOptions = {
     // store: store,
@@ -31,7 +29,6 @@ let sessionOptions = {
 }
 app.use(session(sessionOptions))
 app.use(flash());
-app.use(cors());
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -58,204 +55,12 @@ app.use((req, res, next)=>{
     next();
 })
 
-app.get("/", (req, res)=> {
-    res.render("home.ejs");
-})
 
-app.get("/home", (req,res) =>{
-    res.redirect("/");
-});
-
-app.get("/about", (req, res) => {
-    res.render("pages/about.ejs");
-});
-
-app.get("/privacy", (req, res) => {
-    res.render("pages/privacy.ejs");
-});
-app.get("/terms", (req, res) => {
-    res.render("pages/terms.ejs");
-});
-
-app.get("/listings", wrapAsync(async(req, res)=>{
-    let listings = await Listing.find({}).populate("owner");
-    res.render("listings/index.ejs", {listings});
-    // res.send(listings);
-}))
-
-app.post("/listings",   isLoggedIn, validateListing, wrapAsync(async (req, res)=>{
-    let listing = req.body.listing;
-    
-    // res.send(listing);
-    // console.log(listing);
-    let newListing = new Listing(listing);
-    newListing.owner = req.user;
-    await newListing.save();
-    req.flash("success", "Listing Added Successfully");
-    res.redirect("/listings");
-}));
-
-app.get("/listings/new", isLoggedIn, (req, res)=> {
-    res.render("listings/new.ejs")
-})
-
-app.get("/listings/:id",  wrapAsync(async(req, res)=>{
-    let {id} = req.params;
-    let listing = await Listing.findById(id).populate({
-        path: "reviews",
-        populate: {
-            path: "by",
-            model: "User" 
-        }
-    }).populate("owner");
-    if(!listing) {
-        req.flash("error", "Listing Not Found");
-        res.redirect("/listings");
-    }
-    else {
-        console.log(listing);
-        res.render("listings/show.ejs", {listing});}
-    
-    
-    // res.send(listing);
-}));
-
-app.get("/listings/:id/edit",  saveCurrentUrl, isLoggedIn, wrapAsync(async(req, res)=>{
-    let {id} = req.params;
-    let listing = await Listing.findById(id);
-    res.render("listings/edit.ejs", {listing});
-}));
-
-
-
-app.delete("/listings/:id", isLoggedIn, async (req, res)=>{
-    let {id} = req.params;
-    console.log(id);
-    // let listing = req.body.listing;
-    listing = await Listing.findByIdAndDelete(id).catch((err)=>{
-        console.log(err);
-    })
-    // // await newListing.save();
-    res.redirect("/listings");
-})
-
-app.put("/listings/:id", validateListing, wrapAsync(async (req, res)=>{
-    let {id} = req.params;
-    
-    let listing = await Listing.findByIdAndUpdate(id, req.body.listing).catch((err)=>{
-        console.log(err);
-    })
-    // listing.owner = req.user;
-    // await listing.save();
-    res.redirect(`/listings/${id}`);
-}))
-
-// Review
-app.post("/listings/:id/review", saveCurrentUrl, isLoggedIn, async(req, res)=>{
-    let {id} = req.params;
-    let listing = await Listing.findById(id);
-    if(!listing) {
-        res.redirect("/listings");
-    }
-    let review = new Review (req.body.review);
-    review.by = req.user;
-    listing.reviews.push(review);
-    await listing.save();
-    await review.save();
-    res.redirect(`/listings/${id}`); 
-});
-
-app.delete("/listings/:id/review/:reviewId", saveCurrentUrl, isLoggedIn, wrapAsync(async(req, res)=>{
-    let { id, reviewId } = req.params;
-    await Listing.findByIdAndUpdate(id, { $pull: { review: reviewId } });
-    await Review.findByIdAndDelete(reviewId);
-    // req.flash("success", "Review Deleted");
-    res.redirect(`/listings/${id}`);
-}));
-
-app.get("/register", (req, res)=> {
-    res.render("user/register.ejs");
-})
-
-app.post("/register", wrapAsync(async (req, res, next)=>{
-    let {password} = req.body
-    let user = req.body.user;
-    user.username = user.username.replace(/\s/g, '');
-    try {
-        let newUser = await User.register(req.body.user, password);
-        req.flash("success", `Welcome to Hostellers ,${newUser.name}`);
-        console.log(newUser);
-        res.redirect("/listings");
-    } catch (error) {
-        if (error.name === 'UserExistsError') {
-        req.flash("error", error.message);
-        return res.redirect("/register");
-    }else{
-        return next(error)
-    }
-}}));
-
-app.get("/login", (req, res) => {
-    res.render("user/login.ejs");
-})
-
-app.post("/login", passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), 
-    wrapAsync(async (req, res)=> {
-    // console.log("Redirect Url", redirectUrl);
-    req.flash("success", "Happy To See You Again");
-    res.redirect(getRedirectUrl() || "/listings");
-}));
-
-app.get("/logout", (req, res, next)=> {
-    req.isAuthenticated()
-        ? req.logout((err) => (err ? next(err) :
-         (req.flash("success", "Logged Out Successfully"),
-            res.redirect("/listings"))))
-        : (req.flash("error", "Hmm! Nice Try"),
-             res.redirect("/listings"));
-})
-
-app.get("/account/edit", isLoggedIn,  wrapAsync(async (req, res)=> {
-    res.render("user/edit.ejs");
-}))
-
-app.put("/:username", isLoggedIn, wrapAsync(async (req, res)=> {
-    let user = req.params.username;
-    let {username, email, name, accountType } = req.body.user;
-    username = username.replace(/\s/g, '');
-    let updatedUser = await User.findOneAndUpdate({username: user},
-         {$set: {username, email, name, accountType}}
-         ,{new: true} );
-    if(!updatedUser) {
-        req.flash("error", "Forbidden");
-        res.redirect("/login");
-    }
-    else{
-        req.flash("success", "Details updated successfully");
-        res.redirect(`/${updatedUser.username}`);
-    }
-    
-}))
-app.get("/:username", wrapAsync(async (req, res)=> {
-    let user = await User.findOne({username: req.params.username});
-    if(user) {
-        let listings = await Listing.find({owner: user._id}) || [];
-        res.render("user/show.ejs", {user, listings});
-        
-    }else {
-        req.flash("error", "No user found");
-        res.redirect("/register");
-    }
-})) 
-
-
-// React testing 
-
-
-app.get("/react", (req, res)=> {
-    console.log("triggerred");
-    res.json({"name": "kaushal"})
-})
+app.use("/", pagesRoute);
+app.use("/listings", listingsRoute);
+app.use("/listings/:id/", reviewsRoute)
+app.use("/", usersRoute)
+ 
 
 main().then((res)=>{
     console.log("Database is ready!")
@@ -267,7 +72,10 @@ async function main() {
 }
 
 app.use((err, req, res, next) =>{
-    // console.log(req.headers);
+    if(err.message.includes("Cast to ObjectId failed")) {
+        req.flash("error", "Bad Request");
+        res.redirect("/listings");
+    }
     if(err.code === 11000 && err.keyPattern && err.keyPattern.email) {
         req.flash("error", "Email is already in use!")
         res.redirect(req.headers.referer);

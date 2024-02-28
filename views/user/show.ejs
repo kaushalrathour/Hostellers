@@ -15,7 +15,7 @@
                 <li class="list-group-item"><strong>Name:</strong> <%= user.name %></li>
                 <li class="list-group-item"><strong>Email:</strong> <%= user.email %> </li>
                 <li class="list-group-item"><strong>Username:</strong> <%= user.username %></li>
-                <li class="list-group-item"><strong>Account Type:</strong> <%= user.accountType %></li>
+                <li class="list-group-item"><strong>Account Type:</strong> <%= user.accountType === "Personal"? "Student / Individual" :user.accountType %></li>
                 <li class="list-group-item"><strong>Joined:</strong> <%= user.createdAt.toDateString() %></li>
 
                 <li class="list-group-item">
