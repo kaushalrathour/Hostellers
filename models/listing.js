@@ -9,9 +9,18 @@ const listingSchema = new Schema ({
         type: String,
         enum: ["Boys", "Girls", "Both"]
     },
-    city: String,
-    state: String,
-    address: String,
+    city: {
+        type: String,
+        uppercase: true,
+    },
+    state: {
+        type: String,
+        uppercase: true,
+    },
+    address: {
+        type: String,
+        uppercase: true,
+    },
     price: Number,
     image: String,
     description: String,

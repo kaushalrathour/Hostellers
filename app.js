@@ -15,6 +15,8 @@ const listingsRoute = require("./routes/listings.js");
 const reviewsRoute = require("./routes/reviews.js");
 const usersRoute = require("./routes/users.js");
 
+
+
 let sessionOptions = {
     // store: store,
     secret: "mysecret",
@@ -58,7 +60,8 @@ app.use((req, res, next)=>{
 
 app.use("/", pagesRoute);
 app.use("/listings", listingsRoute);
-app.use("/listings/:id/", reviewsRoute)
+app.use("/listings", reviewsRoute);
+
 app.use("/", usersRoute)
  
 
@@ -72,6 +75,9 @@ async function main() {
 }
 
 app.use((err, req, res, next) =>{
+    if(typeof err.message != "string") {
+        next(err);
+    } else {
     if(err.message.includes("Cast to ObjectId failed")) {
         req.flash("error", "Bad Request");
         res.redirect("/listings");
@@ -80,13 +86,14 @@ app.use((err, req, res, next) =>{
         req.flash("error", "Email is already in use!")
         res.redirect(req.headers.referer);
     }
-    else if (err.code === 11000 && err.keyPattern && err.keyPattern.username) {
+    if (err.code === 11000 && err.keyPattern && err.keyPattern.username) {
         req.flash("error", "Username is already in use");
         res.redirect(req.headers.referer);
     }
     else {
         next(err);
     }
+}
 })
 
 app.all("*", (req, res)=> {

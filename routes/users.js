@@ -3,7 +3,7 @@ const wrapAsync = require("../utilities/wrapAsync");
 const User = require("../models/user");
 const Listing = require("../models/listing");
 const passport = require("passport");
-const { isLoggedIn, getRedirectUrl, removeSpaces } = require("../middlewares");
+const { isLoggedIn } = require("../middlewares");
 const router = new express.Router();
 const userController = require("../controllers/users");
 

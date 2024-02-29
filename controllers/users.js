@@ -1,4 +1,5 @@
-const { getRedirectUrl, removeSpaces } = require("../middlewares");
+const { getRedirectUrl} = require("../middlewares");
+const { removeSpaces } = require("../helper.js");
 const Listing = require("../models/listing");
 const User = require("../models/user");
 

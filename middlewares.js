@@ -1,3 +1,5 @@
+const ExpressError = require("./utilities/ExpressError.js");
+const { listingSchema } = require("./schema.js");
 let redirectUrl;
 
 module.exports.validateListing = (req, res, next) => {
@@ -37,7 +39,3 @@ module.exports.getRedirectUrl = () => {
     return redirectUrl;
 }
 
-module.exports.removeSpaces = (string) =>  {
-    console.log(string);
-    return string.replace(/\s/g, '');
-}

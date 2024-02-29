@@ -24,7 +24,7 @@ module.exports.listingSchema = Joi.object({
     price: Joi.number().required().min(1000),
     image: Joi.string(),
     description: Joi.string().required(),
-    nearCollege: Joi.string(),
+    nearCollege: Joi.string().optional(),
     bedrooms: Joi.number().required(),
     roomType: Joi.string().valid('Single', 'Double', 'Triple', 'Dormitory').required(),
     facilities: facilitiesSchema,
