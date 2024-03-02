@@ -1,51 +1,10 @@
 <% layout("layouts/boilerplate") -%>
 
-<!-- Filtering UI -->
-<div class="row mb-3">
-    <div class="col">
-        <form action="/listings" method="get" class="mt-3 mb-5 d-flex justify-content-center">
-            
-                <select name="sortby" class="btn btn-secondary">
-                    <option value="" class="text-center">Sort By</option>
-                    <option value="popularity" class="text-center">Popularity</option>
-                    <option value="price-asc" class="text-center">Price: Low to High</option>
-                    <option value="price-desc" class="text-center">Price: High to Low</option>
-                </select>
-                &nbsp; &nbsp;
-             
-            
-            <div class="btn-group">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">For Who</button>
-                <ul class="dropdown-menu">
-                    <li><label class="dropdown-item"><input type="checkbox" name="filter" value="girls"> Girls</label></li>
-                    <li><label class="dropdown-item"><input type="checkbox" name="filter" value="boys"> Boys</label></li>
-                </ul>
-                </div>
-            </div> &nbsp; &nbsp;
-                
-            
-
-        <div class="btn-group">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Rating
-                </button>
-                <ul class="dropdown-menu">
-                    <li><label class="dropdown-item"><input type="checkbox" name="rating" value="3"> 3 stars above</label></li>
-                    <li><label class="dropdown-item"><input type="checkbox" name="rating" value="4"> 4 stars above</label></li>
-                </ul>
-            </div>
-        </div>
-    
-        
-
-           &nbsp; &nbsp; <button type="submit" class="btn btn-primary">Apply Filters</button>
-        </form>
-    </div>
+<div class="d-flex justify-content-center">
+    <a href="/listings" class="btn">All</a>
+    <a href="/listings/for/boys" class="btn">Boys</a>
+    <a href="/listings/for/girls" class="btn">Girls</a>
 </div>
-
-
 
 <!-- Listings UI -->
 <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 mt-3">
@@ -54,7 +13,7 @@
         <% for(let i=0; i<listing.reviews.length; i++) { %>
             <% totalRating += listing.reviews[i].rating %>
         <% } %>
-        <% let average = totalRating / (listing.reviews.length || 1); %>
+        <% let average = totalRating / (listing.reviews.length); %>
     
         <a href="/listings/<%=listing.id%>" class="listing-link mb-3">
             <div class="card col">
@@ -86,5 +45,3 @@
         </a>
     <% } %>
 </div>
-
-

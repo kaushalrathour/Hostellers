@@ -7,20 +7,11 @@ const listingSchema = new Schema ({
     title: String,
     forWho: {
         type: String,
-        enum: ["Boys", "Girls", "Both"]
+        enum: ["Boys", "Girls"]
     },
-    city: {
-        type: String,
-        uppercase: true,
-    },
-    state: {
-        type: String,
-        uppercase: true,
-    },
-    address: {
-        type: String,
-        uppercase: true,
-    },
+    city: String,
+    state: String,
+    address: String,
     price: Number,
     image: String,
     description: String,
@@ -39,7 +30,11 @@ const listingSchema = new Schema ({
     reviews: [{
         type: Schema.Types.ObjectId,
         ref: "Review",
-    }]
+    }],
+    views: {
+        type:Number,
+        default: 0,
+    }
 })
 
 listingSchema.post("findOneAndDelete", async (listing)=>{

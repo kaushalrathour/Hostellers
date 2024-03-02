@@ -12,18 +12,62 @@ module.exports.getListings = async(req, res)=>{
     res.render("listings/index.ejs", {listings});
 };
 
-module.exports.getListingsBySearch = async(req, res)=> {
-    let {q} = req.query;
-    if(q) {
-    let listings = await Listing.find({}).populate("owner");
-    req.flash("success", `Listings On the basic of ${q}`)
-    res.render("listings/index.ejs", {listings});
+module.exports.getListingsFor = async(req, res)=>{
+    let {forWho} = req.params;
+    if(forWho.toLowerCase() != "boys"  && forWho.toLowerCase() != "girls") {
+        console.log(forWho)
+        req.flash("error", `Listings are not available for ${forWho}`);
+        res.redirect("/listings");
     }
     else {
-        res.send("Bad Request");
+        let query = {forWho: {$regex: forWho, $options: "i"}};
+        let listings = await Listing.find(query).populate({
+        path: "reviews",
+        populate: {
+            path: "by",
+            model: "User" 
+        }
+        }).populate("owner");
+        req.flash("success", `Hostels For ${forWho} Only`);
+        res.render("listings/index.ejs", {listings});
     }
-    
-}
+};
+
+module.exports.getListingsBySearch = async (req, res) => {
+        let { q } = req.query;
+        if (q) {
+            const query = {
+                $or: [
+                    { title: { $regex: q, $options: 'i' } },
+                    { city: { $regex: q, $options: 'i' } },
+                    { state: { $regex: q, $options: 'i' } },
+                    { nearCollege: { $regex: q, $options: 'i' } },
+                ],
+            };
+            
+            let listings = await Listing.find(query).populate({
+                path: "reviews",
+                populate: {
+                    path: "by",
+                    model: "User" 
+                }
+            }).populate("owner");
+            if(!listings.length) {
+                req.flash("error", `No Listings found based on the search term: ${q}`);
+                res.redirect("/listings");
+            }
+            else {
+                console.log(listings);
+                req.flash("success", `Listings based on the search term: ${q}`);
+                res.render("listings/index.ejs", { listings });
+            }
+        } else {
+            req.flash("error", "Bad Request: Missing search query");
+            res.redirect("back");
+        }
+    }; 
+
+
 
 module.exports.postListings = async (req, res)=>{
     let listing = req.body.listing;
@@ -62,7 +106,8 @@ module.exports.getListingShowPage = async(req, res)=>{
         res.redirect("/listings");
     }
     else {
-        console.log(listing);
+        listing.views+= 1;
+        await listing.save();
         res.render("listings/show.ejs", {listing});
     };
 };

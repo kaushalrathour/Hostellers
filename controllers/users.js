@@ -22,7 +22,7 @@ module.exports.registerUser = async (req, res, next)=>{
         user.accountType = accountType;
         await user.save(); 
         req.flash("success", `Welcome to Hostellers ,${name}`);
-        res.redirect("/listings");
+        res.redirect(getRedirectUrl() || "/listings");
     
 }
 
@@ -39,9 +39,9 @@ module.exports.userLogout = (req, res, next)=> {
     req.isAuthenticated()
         ? req.logout((err) => (err ? next(err) :
          (req.flash("success", "Logged Out Successfully"),
-            res.redirect("/listings"))))
+            res.redirect(getRedirectUrl() || "/listings"))))
         : (req.flash("error", "Hmm! Nice Try"),
-             res.redirect("/listings"));
+             res.redirect(getRedirectUrl() ||"/listings"));
 }
 
 module.exports.getEditForm = async (req, res)=> {
@@ -73,6 +73,7 @@ module.exports.getUserProfile = async (req, res)=> {
         res.render("user/show.ejs", {user, listings});
         
     }else {
+        console.log(req.headers.referer);
         req.flash("error", "No user found");
         res.redirect("/register");
     }

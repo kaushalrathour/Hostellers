@@ -1,5 +1,7 @@
 const ExpressError = require("./utilities/ExpressError.js");
 const { listingSchema } = require("./schema.js");
+const Listing = require("./models/listing.js");
+const wrapAsync = require("./utilities/wrapAsync.js");
 let redirectUrl;
 
 module.exports.validateListing = (req, res, next) => {
@@ -23,17 +25,35 @@ module.exports.isLoggedIn = (req, res, next) => {
 }
 
 module.exports.saveCurrentUrl = (req, res, next) => {
-    redirectUrl = req.path.includes('/review')? req.headers.referer : redirectUrl = req._parsedOriginalUrl.pathname;
-    console.log(redirectUrl)
-    next();
-}
-module.exports.ensureAccountOwner = (req, res, next) => {
-    if(req.user.username === req.params.username) {
+    if(req.path == "/login" || req.path == "/register" || req.path == "/logout"|| req.path.includes('/review')) {
+        redirectUrl = req.headers.referer;
+        console.log("If Trigerred", redirectUrl);
         next();
-    }else {
-        throw new ExpressError(403, "Access Denied");
+    } else {
+        redirectUrl = req.path;
+        console.log("Else Trigerred", redirectUrl);
+        next();
     }
+    
 }
+module.exports.ensureListingOwner = wrapAsync(async(req, res, next) => {
+    let {id} = req.params;
+    let listing = await Listing.findById(id).populate("owner");
+    if(!listing) {
+        req.flash("error", "Listing Not Found In Ensuring Owner");
+        res.redirect(`/${req.user.username}`);
+    }
+     else if  (listing.owner.username === req.user.username) {
+        console.log("Access Given");
+        next();
+    }
+     else {
+        console.log("Access Denied");
+        req.flash("error", "Access Denied");
+        res.redirect(`/${req.user.username}`);
+    }
+    
+})
 
 module.exports.getRedirectUrl = () => {
     return redirectUrl;

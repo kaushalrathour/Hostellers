@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const User = require("./models/user.js");
-const Listing = require("./models/listing.js");
 const engine = require("ejs-mate");
 const session = require("express-session");
 const flash = require("connect-flash");

@@ -18,7 +18,6 @@
                 <select name="listing[forWho]" id="forWho" required class="form-select">
                     <option value="Boys" <%= listing.forWho === 'boys' ? 'selected' : '' %>>Boys</option>
                     <option value="Girls" <%= listing.forWho === 'girls' ? 'selected' : '' %>>Girls</option>
-                    <option value="Both" <%= listing.forWho === 'both' ? 'selected' : '' %>>Both</option>
                 </select>
                 <div class="invalid-feedback">
                     Please choose a category for your listing.
@@ -93,7 +92,7 @@
 
             <div class="mb-3">
                 <label for="bedrooms" class="form-label">Number of Bedrooms</label>
-                <input type="number" name="listing[bedrooms]" placeholder="Enter the total number of bedrooms in hostel" class="form-control" id="bedrooms" required>
+                <input type="number" name="listing[bedrooms]" placeholder="Enter the total number of bedrooms in hostel" class="form-control" id="bedrooms"  value="<%=listing.bedrooms%>" required>
                 <div class="invalid-feedback">
                     Please enter the number of bedrooms for your listing.
                 </div>

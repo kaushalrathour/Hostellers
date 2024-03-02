@@ -24,8 +24,9 @@ router.post("/:id/review", saveCurrentUrl, isLoggedIn, wrapAsync(async(req, res)
 
 router.delete("/:id/review/:reviewId", saveCurrentUrl, isLoggedIn, wrapAsync(async(req, res)=>{
     let { id, reviewId } = req.params;
-    await Listing.findByIdAndUpdate(id, { $pull: { review: reviewId } });
+    // await Listing.findByIdAndUpdate(id, { $pull: { review: reviewId } });
     await Review.findByIdAndDelete(reviewId);
+    req.flash("success", "Review Deleted");
     res.redirect(`/listings/${id}`);
 }));
 

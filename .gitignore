@@ -1,3 +1,4 @@
 node_modules/
 rough.ejs
 rough.js
+.env

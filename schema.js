@@ -17,7 +17,7 @@ const facilitiesSchema = Joi.object().keys({
 module.exports.listingSchema = Joi.object({
     listing:{
     title: Joi.string().required(),
-    forWho: Joi.string().valid('Boys', 'Girls', 'Both').required(),
+    forWho: Joi.string().valid('Boys', 'Girls').required(),
     city: Joi.string().required(),
     state: Joi.string().required(),
     address: Joi.string().required(),
