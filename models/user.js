@@ -10,12 +10,21 @@ const userSchema = new Schema({
     email: {
         type: String,
         unique: true,
+        match: [/\S+@\S+\.\S+/, 'Invalid email address'],
     },
     username: {
         type: String,
         trim: true, 
         unique: true,
         lowercase: true,
+        maxLength: 16,
+        validate: {
+            validator: function(value) {
+                const regex = /^[a-zA-Z0-9_]+$/;
+                return regex.test(value);
+            },
+            message: props => `${props.value} is not a valid username. Only letters, numbers, and underscores are allowed.`,
+        },
     },
     accountType: {
         type: String,

@@ -1,21 +1,64 @@
 <% layout("layouts/boilerplate.ejs") -%>
 
-<section class="bg-light py-5 rounded">
-  <div class="container">
-      <h2 class="text-center mb-4">Find Your Ideal Hostel with Hostellers</h2>
-      <p class="lead text-center mb-4">Simplify your search for the perfect student accommodation near your college or university</p>
-      <a href="/listings" class="btn btn-primary btn-lg d-block mx-auto">Explore</a>
-  </div>
-</section>
-
-<!-- About Section -->
+<!-- About UI Section -->
 <section class="py-5 mt-5 bg-light rounded">
-  <div class="container">
-      <h2 class="text-center mb-4">About Hostellers</h2>
-      <p class="lead text-center mb-4">Hostellers offers comprehensive hostels and flexible room options to ensure a seamless and enjoyable accommodation search experience tailored to the student lifestyle.</p>
-      <a href="/about" class="btn btn-secondary btn-lg d-block mx-auto">Learn More</a>
-  </div>
+    <div class="container">
+        <h2 class="text-center mb-4"><strong>About Hostellers</strong></h2>
+        <p class="lead text-center mb-4">Hostellers offers comprehensive hostels and flexible room options to ensure a seamless and enjoyable accommodation search experience tailored to the student lifestyle.</p>
+        <a href="/about" class="btn btn-primary btn-lg d-block mx-auto">Learn More</a>
+    </div>
 </section>
+<hr>
+
+<!-- Listings UI Section -->
+<section class="bg-light py-5 rounded">
+    <div class="container">
+        <h2 class="text-center mb-4">Exclusive Listings For You</h2>
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+            <% for (let listing of listings) { %>
+                <% let totalRating = 0; %> 
+                <% for(let i=0; i<listing.reviews.length; i++) { %>
+                    <% totalRating += listing.reviews[i].rating %>
+                <% } %>
+                <% let average = totalRating / (listing.reviews.length); %>
+            
+                <a href="/listings/<%=listing.id%>" class="listing-link mb-3">
+                    <div class="card col">
+                        <img src="<%=listing.image%>" class="card-img-top" alt="Image Of <%=listing.title%>" style="height: 20rem">
+                        <div class="card-img-overlay"></div>
+                        <div class="card-body">
+                    
+                                <p class="card-title"><strong><%=listing.title%></strong>
+                                    <div class="d-flex">
+                                    <div>
+                                        <p><strong>&#x20B9;<%=listing.price.toLocaleString("en-IN")%> /month</strong></p>
+                                    </div>
+                                    <div class="ms-auto">
+                                        <% for (let i = 0; i < Math.round(average); i++) { %>
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                        <% } %>
+                                        
+                                        <% if (Math.round(average) > 0) { %>
+                                            <strong>(<%= listing.reviews.length %>)</strong>&nbsp;
+                                        <% } else { %>
+                                            <strong>No Rating</strong>&nbsp;
+                                        <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <% } %>
+          </div>
+          <div class="d-flex justify-content-center">
+            <a href="/listings" class="btn btn-lg btn-primary">Explore More &nbsp; <i class="fa-solid fa-explosion"></i></a>
+          </div>
+</div>
+</section>          
+
+
+
+
 
 <!-- Contact Form Section -->
 <hr class="mb-3 mt-5">

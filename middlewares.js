@@ -2,7 +2,11 @@ const ExpressError = require("./utilities/ExpressError.js");
 const { listingSchema } = require("./schema.js");
 const Listing = require("./models/listing.js");
 const wrapAsync = require("./utilities/wrapAsync.js");
+const Review = require("./models/review.js");
 let redirectUrl;
+module.exports.getRedirectUrl = () => {
+    return redirectUrl;
+}
 
 module.exports.validateListing = (req, res, next) => {
     console.log("Validating Listing");
@@ -53,9 +57,24 @@ module.exports.ensureListingOwner = wrapAsync(async(req, res, next) => {
         res.redirect(`/${req.user.username}`);
     }
     
-})
+});
 
-module.exports.getRedirectUrl = () => {
-    return redirectUrl;
-}
+module.exports.ensureReviewer = wrapAsync(async(req, res, next)=> {
+    let {reviewId} = req.params;
+    let review = await Review.findById(reviewId).populate("by")
+    if(!review) {
+        req.flash("error", "Review Does Not Exist");
+        res.redirect(redirectUrl ||"back");
+    }
+    else if (req.user.username === review.by.username) {
+        next();
+    }
+    else {
+        req.flash("error", "Access Denied");
+        res.redirect( redirectUrl || "back");
+    }
+    
+});
+
+
 

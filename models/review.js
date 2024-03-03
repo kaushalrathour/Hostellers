@@ -10,6 +10,7 @@ let reviewSchema = new Schema ({
     },
     by: {
         type: Schema.Types.ObjectId,
+        ref: "User"
     },
     comment: String,
     createdAt: {

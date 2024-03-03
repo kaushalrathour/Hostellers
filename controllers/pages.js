@@ -1,5 +1,14 @@
-module.exports.getRootPage = (req, res)=> {
-    res.render("home.ejs");
+const Listing = require("../models/listing");
+
+module.exports.getRootPage = async (req, res)=> {
+    let listings =await Listing.find({}).populate({
+        path: "reviews",
+        populate: {
+            path: "by",
+            model: "User" 
+        }
+    }).populate("owner").limit(6);
+    res.render("home.ejs", {listings});
 }
 
 module.exports.getHomePage = (req,res) =>{

@@ -1,5 +1,5 @@
 const express = require("express");
-const { saveCurrentUrl, isLoggedIn } = require("../middlewares");
+const { saveCurrentUrl, isLoggedIn, ensureReviewer } = require("../middlewares");
 const wrapAsync = require("../utilities/wrapAsync");
 const Review = require("../models/review");
 const Listing = require("../models/listing");
@@ -22,9 +22,9 @@ router.post("/:id/review", saveCurrentUrl, isLoggedIn, wrapAsync(async(req, res)
     res.redirect(`/listings/${id}`); 
 }));
 
-router.delete("/:id/review/:reviewId", saveCurrentUrl, isLoggedIn, wrapAsync(async(req, res)=>{
+router.delete("/:id/review/:reviewId", saveCurrentUrl, isLoggedIn, ensureReviewer, wrapAsync(async(req, res)=>{
     let { id, reviewId } = req.params;
-    // await Listing.findByIdAndUpdate(id, { $pull: { review: reviewId } });
+    await Listing.findByIdAndUpdate(id, { $pull: { review: reviewId } });
     await Review.findByIdAndDelete(reviewId);
     req.flash("success", "Review Deleted");
     res.redirect(`/listings/${id}`);

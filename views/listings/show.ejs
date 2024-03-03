@@ -30,11 +30,28 @@
                         
                     
                 </li>
+                
                 <% if(listing.nearCollege) {%>
                     <li class="list-group-item"><strong>Near of College:</strong> <%= listing.nearCollege %></li>
                 <%}%>
                 <li class="list-group-item"><strong>Description:</strong> <%= listing.description %></li>
                 <li class="list-group-item"><strong>Total Number of Room:</strong> <%= listing.bedrooms %></li>
+
+                <% let totalRating = 0; %> 
+                <% for(let i=0; i<listing.reviews.length; i++) { %>
+                  <% totalRating += listing.reviews[i].rating %>
+                  <% } %>
+              <% let average = totalRating / (listing.reviews.length); %>
+                <li class="list-group-item"> <strong>Rating: </strong>
+                  <% for (let i = 0; i < Math.round(average); i++) { %>
+                    <i class="fa-solid fa-star text-warning"></i>
+                <% } %>
+                <% if (Math.round(average) > 0) { %>
+                  <strong>(<%= listing.reviews.length %>)</strong>&nbsp;
+              <% } else { %>
+                  <strong>No Rating</strong>&nbsp;
+              <% } %>
+                </li>
                 
                 <!-- Update and Delete Buttons -->
                 <%if(currentUser.username == listing.owner.username) {%>
@@ -59,7 +76,7 @@
 
 <form action="/listings/<%=listing._id%>/review" method="POST">
     <hr>
-        <h1>Leave a Review</h1>
+        <h1><strong>Leave a Review</strong></h1>
         <label for="rating" class="form-label">Rating</label>
         <fieldset class="starability-slot">
           <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
@@ -77,7 +94,7 @@
 
         <label for="comment" class="form-label">Comments</label>
         <br>
-        <textarea type="text" name="review[comment]" id="comment" class="form-control rounded" required rows="5"></textarea>
+        <textarea type="text" name="review[comment]" id="comment" class="form-control rounded" required rows="3" placeholder="Share your thoughts..."></textarea>
         <br>
 
         <button class="btn btn-light btn-outline-secondary mb-3">Submit</button>
@@ -87,51 +104,38 @@
 
  <!-- Reviews Start -->
  <% if (listing.reviews.length) { %>
-    <hr>
-    <section>
-        <div class="container py-5">
-          <div class="row d-flex justify-content-center">
-            <div class="col-md-10 col-xl-8 text-center">
-              <h3 class="fw-bold mb-4">Reviews</h3>
-              
+  <hr class="mt-3">
+  <h1 class="text-center mb-5"><strong>Reviews</strong></h1>
+  <div class="mb-3">
+      <% for(review of listing.reviews) { %>
+          <div class="mb-4 border rounded p-3">
+              <div class="d-flex justify-content-between">
+                  <div>
+                      <strong><%= review.by.name %>:</strong>
+                      <a style="text-decoration: none; color:chocolate;" href="/<%= review.by.username %>"><i>(@<%= review.by.username %>)</i></a>
+                  </div>
+                  <div>
+                      <% for(let i = 0; i < review.rating; i++) { %>
+                          <i class="fas fa-star fa-sm text-warning"></i>
+                      <% } %>
+                      <p><%= review.createdAt.toLocaleDateString() %></p>
+                  </div>
+              </div>
+              <div class="mt-2" style="overflow-wrap: break-word; max-width: 100%;">
+                  <p><%= review.comment %></p>
+              </div>
+              <div class="mt-2">
+              <%if(currentUser.username === review.by.username) {%>
+                <form action="/listings/<%=listing._id%>/review/<%=review._id%>?_method=DELETE" method="POST">
+                  <button class="btn btn-danger">Delete</button>
+                </form>
+              <%}%>
             </div>
           </div>
-      
-          <div class="row text-center">
-        <% for (let i = 0; i < listing.reviews.length; i++) { %>
-            
-                    <div class="col-md-4 mb-4 mb-md-0">
-                      <div class="card" style="color: #000; background-color: #f3f2f2;">
-                        <div class="card-body py-4 mt-2">
-                          <div class="d-flex justify-content-center mb-4">
-                            <img src="https://static.thenounproject.com/png/1095867-200.png"
-                              class="rounded-circle shadow-1-strong" width="100" height="100" />
-                          </div>
-                          <h5 class="font-weight-bold"><strong><%= listing.reviews[i].by.name %></strong></h5>
-                          <h6 class="font-weight-bold my-3"><%= listing.reviews[i].by.createdAt.toLocaleDateString() %></h6>
-                          <ul class="list-unstyled d-flex justify-content-center">
-                            <%for(let j= 0; j<listing.reviews[i].rating; j++) {%>
-                                <li>
-                                    <i class="fas fa-star fa-sm text-info text-warning"></i>
-                                </li>
-                               <%}%>
-                          </ul>
-                          <p class="mb-2">
-                            <i class="fas fa-quote-left pe-2"></i><%= listing.reviews[i].comment %>
-                            <%if(currentUser.username === listing.reviews[i].by.username) {%>
-                              <form action="/listings/<%=listing._id%>/review/<%=listing.reviews[i].by._id%>?_method=DELETE" method="POST">
-                                <button class="btn">Delete</button>
-                              </form>
-                            <%}%>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                            
-                     
-            <% } %>
-            </div>
-            </section>
-        
+      <% } %>
+  </div>
 <% } %>
+
+
+
 <!-- Reviews End -->

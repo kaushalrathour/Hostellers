@@ -72,8 +72,9 @@ main().then((res)=>{
 async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/Hostellers');
 }
-
+/// Mongoose Schema Error Handling Middleware
 app.use((err, req, res, next) =>{
+    console.log(err.message)
     if(typeof err.message != "string") {
         next(err);
     } else {
@@ -88,6 +89,18 @@ app.use((err, req, res, next) =>{
     if (err.code === 11000 && err.keyPattern && err.keyPattern.username) {
         req.flash("error", "Username is already in use");
         res.redirect(req.headers.referer);
+    }
+    if(err.message.includes("Only letters, numbers, and underscores are allowed")) {
+        req.flash("error", "Only letters, numbers, and underscores are allowed For Username");
+        res.redirect("back");
+    }
+    if(err.message.includes("Invalid email address")) {
+        req.flash("error", "Invalid email address")
+        res.redirect("back");
+    }
+    else if(err.message.includes("maximum allowed length")) {
+        req.flash("error", "The Maximum Length Of User Should Be 16");
+        res.redirect("back");
     }
     else {
         next(err);

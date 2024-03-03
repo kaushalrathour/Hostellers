@@ -11,7 +11,7 @@ router.get("/for/:forWho", wrapAsync(listingsController.getListingsFor));
 
 router.get("/search", wrapAsync(listingsController.getListingsBySearch));
 
-router.post("/",   isLoggedIn, ensureListingOwner, validateListing, wrapAsync(listingsController.postListings));
+router.post("/",   isLoggedIn, validateListing, wrapAsync(listingsController.postListings));
 
 router.get("/new", isLoggedIn, (listingsController.getNewListingForm))
 
