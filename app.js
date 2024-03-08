@@ -20,9 +20,7 @@ const contactRoute = require("./routes/contact.js");
 
 const store = MongoStore.create({
     mongoUrl: process.env.DB_URL,
-    crypto: {
-        secret: process.env.SECRET,
-    },
+    secret: process.env.SECRET,
     touchAfter: 24 * 3600,
 });
 
