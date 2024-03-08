@@ -1,4 +1,4 @@
-// Schema Validation
+// Listing Schema Validation
 const Joi = require("joi");
 
 const facilitiesSchema = Joi.object().keys({
@@ -37,11 +37,4 @@ module.exports.listingSchema = Joi.object({
     facilities: facilitiesSchema,
 }});
 
-module.exports.userSchema = Joi.object({
-    user: {
-        username: Joi.string(),
-        email: Joi.string().email().required(),
-        name: Joi.string().required(),
-        accountType: Joi.string().valid("Business", "Personal"),
-    }
-})
+

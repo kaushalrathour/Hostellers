@@ -27,43 +27,37 @@
                         <img src="<%=listing.image.path%>" class="card-img-top" alt="Image Of <%=listing.title%>" style="height: 20rem">
                         <div class="card-img-overlay"></div>
                         <div class="card-body">
-                    
-                                <p class="card-title"><strong><%=listing.title%></strong>
-                                    <div class="d-flex">
-                                    <div>
-                                        <p><strong>&#x20B9;<%=listing.price.toLocaleString("en-IN")%> /month</strong></p>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <% for (let i = 0; i < Math.round(average); i++) { %>
-                                            <i class="fa-solid fa-star text-warning"></i>
-                                        <% } %>
-                                        
-                                        <% if (Math.round(average) > 0) { %>
-                                            <strong>(<%= listing.reviews.length %>)</strong>&nbsp;
-                                        <% } else { %>
-                                            <strong>No Rating</strong>&nbsp;
-                                        <% } %>
+                            <p class="card-title"><strong><%=listing.title%></strong></p>
+                            <div class="d-flex">
+                                <div>
+                                    <p><strong>&#x20B9;<%=listing.price.toLocaleString("en-IN")%> /month</strong></p>
+                                </div>
+                                <div class="ms-auto">
+                                    <% for (let i = 0; i < Math.round(average); i++) { %>
+                                        <i class="fa-solid fa-star text-warning"></i>
+                                    <% } %>
+                                    <% if (Math.round(average) > 0) { %>
+                                        <strong>(<%= listing.reviews.length %>)</strong>&nbsp;
+                                    <% } else { %>
+                                        <strong>No Rating</strong>&nbsp;
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
             <% } %>
-          </div>
-          <div class="d-flex justify-content-center">
+        </div>
+        <div class="d-flex justify-content-center">
             <a href="/listings" class="btn btn-lg btn-primary">Explore More &nbsp; <i class="fa-solid fa-explosion"></i></a>
-          </div>
-</div>
-</section>          
-
-
-
-
+        </div>
+    </div>
+</section>
 
 <!-- Contact Form Section -->
 <hr class="mb-3 mt-5">
 <div class="contact-form mt-5 mb-3">
-    <h1 class="text-center">Get in touch with us</h1>
+    <h1 class="text-center"><strong>Get in touch with us</strong></h1>
     <form action="/contact" method="POST" onsubmit="disabledButton()">
         <label class="form-label">Name</label>
         <input type="text" placeholder="Your name" class="form-control" name="contact[name]" required> <br>
@@ -72,10 +66,9 @@
         <input type="email" placeholder="Your email" class="form-control"  name="contact[email]" required> <br>
 
         <label class="form-label" for="message">Message*</label>
-        <textarea id="message" rows="5"  class="form-control" placeholder="Enter your message here" name="contact[message]" required></textarea>
-    
+        <textarea id="message" rows="3"  class="form-control" placeholder="Enter your message here" name="contact[message]" required></textarea>
 
-        <button class="btn btn-primary mt-2 submitButton" >Submit</button>
+        <button class="btn btn-primary mt-2 submitButton">Submit</button>
     </form>
     <br>
 </div>

@@ -3,54 +3,64 @@
 <div class="card mb-4 mt-3">
     <div class="row g-0">
         <div class="col-md-4">
-            
-                <img src="https://www.pngkey.com/png/detail/52-523516_empty-profile-picture-circle.png" class="img-fluid rounded-circle" alt="username %> Profile Picture" style="height: 350px; width: 100%;">
-            
-                
-                
-            
+            <img src="https://www.pngkey.com/png/detail/52-523516_empty-profile-picture-circle.png" class="img-fluid rounded-circle" alt="<%= user.username %> Profile Picture" style="height: 350px; width: 100%;">
         </div>
         <div class="col-md-8">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><strong>Name:</strong> <%= user.name %></li>
-                <li class="list-group-item"><strong>Email:</strong> <%= user.email %> </li>
+                <li class="list-group-item"><strong>Email:</strong> <%= user.email %></li>
                 <li class="list-group-item"><strong>Username:</strong> <%= user.username %></li>
-                <li class="list-group-item"><strong>Account Type:</strong> <%= user.accountType === "Personal"? "Student / Individual" :user.accountType %></li>
+                <li class="list-group-item"><strong>Account Type:</strong> <%= user.accountType === "Personal" ? "Student / Individual" : user.accountType %></li>
                 <li class="list-group-item"><strong>Joined:</strong> <%= user.createdAt.toDateString() %></li>
-
                 <li class="list-group-item">
-                    <form action = "/account/edit" method="GET" class="d-inline">
+                    <form action="/account/edit" method="GET" class="d-inline">
                         <button type="submit" class="btn btn-warning me-2">Edit Profile</button>
                     </form>
                 </li>
             </ul>
-            
         </div>
     </div>
 </div>
 
-    <% if(listings && listings.length>0)  {%>
-        <hr class="mt-5">
-        <h1 class="text-center mb-3">Listings By: <strong><%=user.name%> <i>(@<%=user.username%>)</i></strong></h1>
-        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 mt-3">
-        <% for (let list of listings) { %>
-            <a href="/listings/<%=list.id%>" class="listing-link">
+<% if (listings && listings.length > 0)  {%>
+    <hr class="mt-5">
+    <h1 class="text-center mb-3">Listings By: <strong><%= user.name %> <i>(@<%= user.username %>)</i></strong></h1>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-5">
+        <% for (let listing of listings) { %>
+            <% let totalRating = 0; %> 
+            <% for (let i = 0; i < listing.reviews.length; i++) { %>
+                <% totalRating += listing.reviews[i].rating %>
+            <% } %>
+            <% let average = totalRating / (listing.reviews.length); %>
+
+            <a href="/listings/<%= listing.id %>" class="listing-link mb-3">
                 <div class="card col">
-                    <img src="<%=list.image%>" class="card-img-top" alt="Image Of <%=list.title%>" style="height: 20rem">
+                    <img src="<%= listing.image.path %>" class="card-img-top" alt="Image Of <%= listing.title %>" style="height: 20rem">
                     <div class="card-img-overlay"></div>
                     <div class="card-body">
-                        <strong><p class="card-text"><%=list.title%></strong> <br>
-                        &#x20B9;<%=list.price.toLocaleString("en-IN")%>
-                        </p>
+                        <p class="card-title"><strong><%= listing.title %></strong></p>
+                        <div class="d-flex">
+                            <div>
+                                <p><strong>&#x20B9;<%= listing.price.toLocaleString("en-IN") %> /month</strong></p>
+                            </div>
+                            <div class="ms-auto">
+                                <% for (let i = 0; i < Math.round(average); i++) { %>
+                                    <i class="fa-solid fa-star text-warning"></i>
+                                <% } %>
+                                <% if (Math.round(average) > 0) { %>
+                                    <strong>(<%= listing.reviews.length %>)</strong>&nbsp;
+                                <% } else { %>
+                                    <strong>No Rating</strong>&nbsp;
+                                <% } %>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </a>
         <% } %>
     </div>
-</div>
-    <% } else {%>
-        <hr class="mt-5">
-        <h1 class="text-center">No Listings</h1>
-        <hr>
-    <%}%>
-   
+<% } else { %>
+    <hr class="mt-5">
+    <h1 class="text-center">No Listings</h1>
+    <hr>
+<% } %>
