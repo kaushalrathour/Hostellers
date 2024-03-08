@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const User = require("./models/user.js");
 const engine = require("ejs-mate");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
 const ExpressError = require("./utilities/ExpressError.js");
@@ -16,9 +17,22 @@ const reviewsRoute = require("./routes/reviews.js");
 const usersRoute = require("./routes/users.js");
 const contactRoute = require("./routes/contact.js");
 
+
+const store = MongoStore.create({
+    mongoUrl: process.env.DB_URL,
+    crypto: {
+        secret: process.env.SECRET,
+    },
+    touchAfter: 24 * 3600,
+});
+
+store.on("error", (err) => {
+    console.log("Mongo Session Error", err);
+});
+
 let sessionOptions = {
-    // store: store,
-    secret: "mysecret",
+    store: store,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
