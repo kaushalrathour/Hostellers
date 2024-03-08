@@ -16,7 +16,7 @@ router.get("/login", saveCurrentUrl, (userController.getLoginForm))
 router.post("/login", passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), 
     wrapAsync(userController.userLogin));
 
-router.get("/logout", saveCurrentUrl, (userController.userLogout))
+router.get("/logout", (userController.userLogout))
 
 router.get("/account/edit", isLoggedIn,  wrapAsync(userController.getEditForm))
 

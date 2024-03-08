@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -13,8 +14,7 @@ const pagesRoute = require("./routes/pages.js");
 const listingsRoute = require("./routes/listings.js");
 const reviewsRoute = require("./routes/reviews.js");
 const usersRoute = require("./routes/users.js");
-
-
+const contactRoute = require("./routes/contact.js");
 
 let sessionOptions = {
     // store: store,
@@ -60,6 +60,7 @@ app.use((req, res, next)=>{
 app.use("/", pagesRoute);
 app.use("/listings", listingsRoute);
 app.use("/listings", reviewsRoute);
+app.use("/", contactRoute);
 
 app.use("/", usersRoute)
  
@@ -70,7 +71,7 @@ main().then((res)=>{
 .catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/Hostellers');
+  await mongoose.connect(process.env.DB_URL);
 }
 /// Mongoose Schema Error Handling Middleware
 app.use((err, req, res, next) =>{

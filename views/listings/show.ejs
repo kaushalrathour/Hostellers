@@ -3,7 +3,7 @@
 <div class="card mb-4 mt-3">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="<%= listing.image %>" class="img-fluid rounded" alt="<%= listing.title %> Image" style="height: 500px; width: 100%;">
+            <img src="<%= listing.image.path %>" class="img-fluid rounded" alt="<%= listing.title %> Image" style="height: 500px; width: 100%;">
             <!-- <div class="card-overlay"></div> -->
         </div>
         <div class="col-md-8">
@@ -11,7 +11,12 @@
                 <li class="list-group-item"><strong>Listing By:</strong><%= listing.owner.name %> (<i><a href="/<%= listing.owner.username%>">@<%= listing.owner.username%></i></a>)</li>
                 <li class="list-group-item"><strong>Title:</strong><%= listing.title %></li>
                 <li class="list-group-item"><strong>Price:</strong> <%= listing.price.toLocaleString("en-IN") %> </li>  <!-- /month -->
-                <li class="list-group-item"><strong>For:</strong> <%= listing.forWho === "both"? "Both(Girls and Boys)": listing.forWho %>, <strong>Room Type:</strong> <%= listing.roomType %> </li>
+                <li class="list-group-item"><strong>For:</strong> <%=listing.forWho %>,  <strong>Available Room Type:</strong>
+                    <span class="badge bg-secondary"><%= listing.roomType.Single %></span>
+                        <span class="badge bg-secondary"><%= listing.roomType.Double %></span>
+                        <span class="badge bg-secondary"><%= listing.roomType.Triple %></span>
+                        <span class="badge bg-secondary"><%= listing.roomType.Dormitory %></span>
+                </li>
                 <li class="list-group-item"><strong>Location:</strong> <%= listing.city %>, <%= listing.state %></li>
                 <li class="list-group-item"><strong>Address:</strong> <%= listing.address %></li>
                 <li class="list-group-item">
@@ -74,7 +79,7 @@
 
 <!-- Reviews Form Start -->
 
-<form action="/listings/<%=listing._id%>/review" method="POST">
+<form action="/listings/<%=listing._id%>/review" method="POST" onsubmit="disabledButton()">
     <hr>
         <h1><strong>Leave a Review</strong></h1>
         <label for="rating" class="form-label">Rating</label>
@@ -97,7 +102,7 @@
         <textarea type="text" name="review[comment]" id="comment" class="form-control rounded" required rows="3" placeholder="Share your thoughts..."></textarea>
         <br>
 
-        <button class="btn btn-light btn-outline-secondary mb-3">Submit</button>
+        <button class="btn btn-light btn-outline-secondary mb-3 submitButton">Submit</button>
       </form>
 
 <!-- Reviews Form End -->
@@ -126,8 +131,8 @@
               </div>
               <div class="mt-2">
               <%if(currentUser.username === review.by.username) {%>
-                <form action="/listings/<%=listing._id%>/review/<%=review._id%>?_method=DELETE" method="POST">
-                  <button class="btn btn-danger">Delete</button>
+                <form action="/listings/<%=listing._id%>/review/<%=review._id%>?_method=DELETE" method="POST" onsubmit="return disabledButton()">
+                  <button class="btn btn-danger submitButton">Delete</button>
                 </form>
               <%}%>
             </div>

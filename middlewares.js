@@ -29,11 +29,22 @@ module.exports.isLoggedIn = (req, res, next) => {
 }
 
 module.exports.saveCurrentUrl = (req, res, next) => {
-    if(req.path == "/login" || req.path == "/register" || req.path == "/logout"|| req.path.includes('/review')) {
-        redirectUrl = req.headers.referer;
-        console.log("If Trigerred", redirectUrl);
-        next();
-    } else {
+    if(req.path.includes('/review')) {
+            redirectUrl = req.headers.referer;
+            next();
+        }else if (req.path == "/login" || req.path == "/register") {
+                if(!req.headers.referer) next();
+                else if(req.headers.referer.includes("login") || req.headers.referer.includes("register")) {
+
+                    next();
+            }
+                else {
+                redirectUrl = req.headers.referer;
+                console.log("Else If Trigerred", req.headers.referer);
+                next();
+            }
+        }
+        else {
         redirectUrl = req.path;
         console.log("Else Trigerred", redirectUrl);
         next();

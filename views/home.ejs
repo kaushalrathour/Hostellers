@@ -24,7 +24,7 @@
             
                 <a href="/listings/<%=listing.id%>" class="listing-link mb-3">
                     <div class="card col">
-                        <img src="<%=listing.image%>" class="card-img-top" alt="Image Of <%=listing.title%>" style="height: 20rem">
+                        <img src="<%=listing.image.path%>" class="card-img-top" alt="Image Of <%=listing.title%>" style="height: 20rem">
                         <div class="card-img-overlay"></div>
                         <div class="card-body">
                     
@@ -64,16 +64,18 @@
 <hr class="mb-3 mt-5">
 <div class="contact-form mt-5 mb-3">
     <h1 class="text-center">Get in touch with us</h1>
-    <form action="">
+    <form action="/contact" method="POST" onsubmit="disabledButton()">
         <label class="form-label">Name</label>
-        <input type="text" placeholder="Your name" class="form-control"> <br>
+        <input type="text" placeholder="Your name" class="form-control" name="contact[name]" required> <br>
 
         <label class="form-label">Email*</label>
-        <input type="email" placeholder="Your email" class="form-control" required> <br>
+        <input type="email" placeholder="Your email" class="form-control"  name="contact[email]" required> <br>
 
-        <label class="form-label">Message*</label>
-        <textarea name="" id="" rows="5" required class="form-control" placeholder="Enter your message here"></textarea>
-        <button class="btn btn-primary mt-2">Submit</button>
+        <label class="form-label" for="message">Message*</label>
+        <textarea id="message" rows="5"  class="form-control" placeholder="Enter your message here" name="contact[message]" required></textarea>
+    
+
+        <button class="btn btn-primary mt-2 submitButton" >Submit</button>
     </form>
     <br>
 </div>

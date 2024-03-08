@@ -13,7 +13,12 @@ const listingSchema = new Schema ({
     state: String,
     address: String,
     price: Number,
-    image: String,
+    image: { path: String,
+        filename: {
+            type: String,
+            default: "DefaultFileName"
+        },
+    },
     description: String,
     bedrooms: Number,
     nearCollege: String,
@@ -22,8 +27,8 @@ const listingSchema = new Schema ({
         ref: "User",
     },
     roomType: {
-        type: String,
-        enum: ["Single", "Double", "Triple", "Dormitory"]
+        // type: String,
+        // enum: ["Single", "Double", "Triple", "Dormitory"]
     },
     facilities: {
     },

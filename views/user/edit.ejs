@@ -3,7 +3,7 @@
 <div class="container mt-5">
     <h3 class="text-center mb-3">Edit Your Profile</h3>
 
-    <form action="/<%= currentUser.username %>?_method=PUT" method="POST">
+    <form action="/<%= currentUser.username %>?_method=PUT" method="POST" onsubmit="disabledButton()">
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3">
@@ -23,7 +23,7 @@
             <div class="col-md-6">
                 <div class="mb-3">
                     <label for="username" class="form-label"><strong>Username</strong></label>
-                    <input type="text" name="user[username]" class="form-control" id="username" value="<%= currentUser.username %>" required>
+                    <input type="text" name="user[username]" class="form-control" id="username" value="<%= currentUser.username %>" required maxlength="16">
                 </div>
             </div>
             <div class="col-md-6">
@@ -39,6 +39,6 @@
 
        
 
-        <button type="submit" class="btn btn-primary mb-3"><strong>Save Changes</strong></button>
+        <button type="submit" class="btn btn-primary mb-3 submitButton"><strong>Save Changes</strong></button>
     </form>
 </div>

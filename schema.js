@@ -14,6 +14,13 @@ const facilitiesSchema = Joi.object().keys({
     Washroom: Joi.string().valid("Washroom"),
 });
 
+const roomSchema = Joi.object().keys({
+    Single: Joi.string().valid("Single"),
+    Double: Joi.string().valid("Double"),
+    Triple: Joi.string().valid("Triple"),
+    Dormitory: Joi.string().valid("Dormitory"),
+})
+
 module.exports.listingSchema = Joi.object({
     listing:{
     title: Joi.string().required(),
@@ -22,11 +29,11 @@ module.exports.listingSchema = Joi.object({
     state: Joi.string().required(),
     address: Joi.string().required(),
     price: Joi.number().required().min(1000),
-    image: Joi.string(),
+    image: Joi.object().keys({path: Joi.string()}),
     description: Joi.string().required(),
     nearCollege: Joi.string().optional(),
     bedrooms: Joi.number().required(),
-    roomType: Joi.string().valid('Single', 'Double', 'Triple', 'Dormitory').required(),
+    roomType: roomSchema.required(),
     facilities: facilitiesSchema,
 }});
 

@@ -1,7 +1,10 @@
 const { getRedirectUrl} = require("../middlewares");
-const { removeSpaces } = require("../helper.js");
+const { removeSpaces } = require("../helper/removeSpaces.js");
 const Listing = require("../models/listing");
 const User = require("../models/user");
+const { welcomeMail } = require("../helper/sendMail.js");
+const { getWelcomeText } = require("../helper/htmlText.js");
+const ExpressError = require("../utilities/ExpressError");
 
 module.exports.getRegisterForm = (req, res)=> {
     res.render("user/register.ejs");
@@ -21,6 +24,7 @@ module.exports.registerUser = async (req, res, next)=>{
         user.name = name;
         user.accountType = accountType;
         await user.save(); 
+        await welcomeMail(email, getWelcomeText(username));
         req.flash("success", `Welcome to Hostellers ,${name}`);
         res.redirect(getRedirectUrl() || "/listings");
     
@@ -73,8 +77,6 @@ module.exports.getUserProfile = async (req, res)=> {
         res.render("user/show.ejs", {user, listings});
         
     }else {
-        console.log(req.headers.referer);
-        req.flash("error", "No user found");
-        res.redirect("/register");
+        throw new ExpressError(404, "Page Not Found");
     }
 }

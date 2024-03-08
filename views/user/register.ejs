@@ -3,7 +3,7 @@
 <div class="container mt-5">
     <h3 class="text-center mb-3"><strong>Register Now for Exclusive Access!</strong></h3>
 
-    <form action="/register" method="POST" novalidate class="needs-validation">
+    <form action="/register" method="POST" onsubmit="disabledButton()">
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3">
@@ -29,7 +29,7 @@
             <div class="col-md-6">
                 <div class="mb-3">
                     <label for="username" class="form-label"><strong>Username</strong></label>
-                    <input type="text" name="username" class="form-control" id="username" required>
+                    <input type="text" name="username" class="form-control" id="username" required maxlength="16">
                     <div class="invalid-feedback">
                         Please choose a username.
                     </div>
@@ -57,6 +57,6 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary mb-3"><strong>Ignite Your Presence</strong></button>
+        <button type="submit" class="btn btn-primary mb-3 submitButton"><strong>Ignite Your Presence</strong></button>
     </form>
 </div>
