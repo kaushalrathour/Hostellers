@@ -35,6 +35,10 @@ module.exports.listingSchema = Joi.object({
     bedrooms: Joi.number().required(),
     roomType: roomSchema.required(),
     facilities: facilitiesSchema,
+    contact: Joi.object().keys({
+        mobile: Joi.number().required(),
+        email: Joi.string().required(),
+    }),
 }});
 
 

@@ -53,6 +53,15 @@
                     <input class="form-control" type="text" name="listing[nearCollege]" id="nearCollege" placeholder="College Name">
                 </div>
                 
+                <div class="mb-3">
+                    <label for="email" class="form-label">Business Email</label>
+                    <input class="form-control" type="email" name="listing[contact][email]" id="email" placeholder="Enter your business email" value="<%=currentUser.email%>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="mobile" class="form-label">Primary Mobile No.</label>
+                    <input class="form-control" type="number" name="listing[contact][mobile]" id="mobile" placeholder="Provide primary mobile no. for listing" required>
+                </div>
         
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>

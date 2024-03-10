@@ -39,6 +39,13 @@ const listingSchema = new Schema ({
     views: {
         type:Number,
         default: 0,
+    },
+    contact: {
+        mobile: Number,
+        email: {
+            type: String,
+            match: [/\S+@\S+\.\S+/, 'Invalid email address'],
+        },
     }
 })
 
