@@ -12,11 +12,15 @@
                 <li class="list-group-item"><strong>Username:</strong> <%= user.username %></li>
                 <li class="list-group-item"><strong>Account Type:</strong> <%= user.accountType === "Personal" ? "Student / Individual" : user.accountType %></li>
                 <li class="list-group-item"><strong>Joined:</strong> <%= user.createdAt.toDateString() %></li>
-                <li class="list-group-item">
-                    <form action="/account/edit" method="GET" class="d-inline">
-                        <button type="submit" class="btn btn-warning me-2">Edit Profile</button>
-                    </form>
-                </li>
+                <% if(currentUser.username === user.username)  {%>
+                    <li class="list-group-item">
+                        <form action="/account/edit" method="GET" class="d-inline">
+                            <button type="submit" class="btn btn-warning me-2">Edit Profile</button>
+                        </form>
+                    </li>
+                    <%}%>
+                    
+                
             </ul>
         </div>
     </div>
