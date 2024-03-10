@@ -42,9 +42,9 @@ module.exports.userLogout = (req, res, next) => {
     req.isAuthenticated()
         ? req.logout((err) => (err ? next(err) :
             (req.flash("success", "Logged Out Successfully"),
-                res.redirect(getRedirectUrl() || "/listings"))))
+                res.redirect("/"))))
         : (req.flash("error", "Hmm! Nice Try"),
-            res.redirect(getRedirectUrl() || "/listings"));
+            res.redirect("/"));
 };
 
 module.exports.getEditForm = async (req, res) => {
