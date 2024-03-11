@@ -16,8 +16,6 @@ module.exports.getListings = async (req, res) => {
 module.exports.getListingsFor = async (req, res) => {
     let { forWho } = req.params;
     if (forWho.toLowerCase() != "boys" && forWho.toLowerCase() != "girls") {
-        console.log(forWho);
-        req.flash("error", `Listings are not available for ${forWho}`);
         res.redirect("/listings");
     } else {
         let query = { forWho: { $regex: forWho, $options: "i" } };
@@ -30,7 +28,6 @@ module.exports.getListingsFor = async (req, res) => {
                 }
             })
             .populate("owner");
-        req.flash("success", `Hostels For ${forWho} Only`);
         res.render("listings/index.ejs", { listings });
     }
 };
@@ -61,8 +58,6 @@ module.exports.getListingsBySearch = async (req, res) => {
             req.flash("error", `No Listings found based on the search term: ${q}`);
             res.redirect("/listings");
         } else {
-            console.log(listings);
-            req.flash("success", `Listings based on the search term: ${q}`);
             res.render("listings/index.ejs", { listings });
         }
     } else {
