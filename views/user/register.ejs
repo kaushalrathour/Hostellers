@@ -1,48 +1,49 @@
 <% layout("layouts/boilerplate.ejs") -%>
-
-<div class="container mt-5">
-    <h3 class="text-center mb-3"><strong>Register Now for Exclusive Access!</strong></h3>
-
-    <form action="/register" method="POST" onsubmit="disabledButton()">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="name" class="form-label"><strong>Full Name</strong></label>
-                    <input type="text" name="name" class="form-control" id="name" required placeholder="E.g., John Doe">
+<link rel="stylesheet" href="css/user.css">
+<div class="container d-flex justify-content-center mb-3">
+    <div class="wrapper">
+        <header>Register!</header>
+        <form action="/register" method="POST" onsubmit="disabledButton()">
+            <div class="field">
+                <div class="input-area">
+                    <div>
+                        <input type="radio" id="personal" name="accountType" value="Personal" required <%= currentUser.accountType === 'Personal' ? 'checked' : '' %>>
+                        <label for="personal">Student / Individual</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="business" name="accountType" value="Business" <%= currentUser.accountType === 'Business' ? 'checked' : '' %>>
+                        <label for="business">Business</label>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="email" class="form-label"><strong>Email</strong></label>
-                    <input type="email" name="email" class="form-control" id="email" required placeholder="E.g., john@example.com">
+
+            <div class="field">
+                <div class="input-area">
+                    <input type="text" name="name" placeholder="Full Name" required>
+                    <i class="icon fas fa-user"></i>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="username" class="form-label"><strong>Username</strong></label>
-                    <input type="text" name="username" class="form-control" id="username" required maxlength="16" placeholder="E.g., johndoe123">
+            <div class="field">
+                <div class="input-area">
+                    <input type="email" name="email" placeholder="Email" required>
+                    <i class="icon fas fa-envelope"></i>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="accountType" class="form-label"><strong>Register As</strong></label>
-                    <select name="accountType" class="form-select" id="accountType" required>
-                        <option value="Personal" selected>Student / Individual</option>
-                        <option value="Business">Business</option>
-                    </select>
+            <div class="field">
+                <div class="input-area">
+                    <input type="text" name="username" placeholder="Username" required maxlength="16">
+                    <i class="icon fas fa-user"></i>
                 </div>
             </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="password" class="form-label"><strong>Password</strong></label>
-            <input type="password" name="password" class="form-control" id="password" required placeholder="Choose a strong password">
-        </div>
-
-        <button type="submit" class="btn btn-primary mb-3 submitButton"><strong>Ignite Your Presence</strong></button>
-    </form>
-    <p class="mb-3 mt-3">Already registered? <a href="/login">Log in here</a></p>
+            <div class="field">
+                <div class="input-area">
+                    <input type="password" name="password" placeholder="Password" required>
+                    <i class="icon fas fa-lock"></i>
+                </div>
+            </div>
+        
+                <input type="submit" value="Ignite Your Presence">
+        </form>
+        <div class="sign-txt">Already registered? <a href="/login">Log in here</a></div>
+    </div>
 </div>

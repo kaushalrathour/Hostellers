@@ -120,3 +120,7 @@ let navSlider = new Swiper(navSliderSelector, navSliderOptions);
 // Matching sliders
 mainSlider.controller.control = navSlider;
 navSlider.controller.control = mainSlider;
+
+
+// Login Signup 
+
