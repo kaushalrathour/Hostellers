@@ -3,22 +3,22 @@
 <div class="container d-flex justify-content-center mb-3">
  <div class="wrapper">
     <header>Login</header>
-    <form action="/login" method="POST">
-      <div class="field email">
+    <form action="/login" method="POST" onsubmit="disabledButton()">
+      <div class="field">
         <div class="input-area">
           <input type="text" name="username"  placeholder="Please Enter Your Username" maxlength="16" required>
-          <i class="icon fas fa-envelope"></i>
+          <i class="icon fas fa-user"></i>
           </div>
         
       </div>
-      <div class="field password">
+      <div class="field">
         <div class="input-area">
           <input type="password" name="password"  placeholder="Please Enter Your Password" required >
           <i class="icon fas fa-lock"></i>
           <i class="error error-icon fas fa-exclamation-circle"></i>
         </div>
       </div>
-      <input type="submit" value="Login">
+      <input type="submit" value="Login" class="submitButton">
     </form>
     <div class="sign-txt">Not registered yet? <a href="/register">Signup now</a></div>
   </div>
