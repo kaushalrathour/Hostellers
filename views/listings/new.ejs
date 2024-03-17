@@ -1,174 +1,166 @@
 <% layout("/layouts/boilerplate") -%>
-<body>
-<div class="row mt-3">
-        <div class="col-8 offset-2">
-            <h3 class="mb-3 mt-5">Create New Listing</h3>
-            <form action="/listings" method="POST" onsubmit="return disabledButton()">  <!--enctype="multipart/form-data"-->
-                
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" name="listing[title]" placeholder="Enter an interesting title"  class="form-control" id="title" required>
-                    <div class="invalid-feedback">
-                        Please provide a title for your listing.
-                    </div>
-                </div>
+<div class="d-flex justify-content-center">
+    <link rel="stylesheet" href="/css/listing.css">
+    <div class="wrapper">
+        <header class="mb-3">List your hostel</header>
+        <form action="/listings" method="POST" onsubmit="return disabledButton()">  <!--enctype="multipart/form-data"-->
 
-                <div class="mb-3">
-                    <label for="forWho" class="form-label">For Who</label>
-                    <select name="listing[forWho]" id="forWho" required class="form-select">
+            <div class="field">
+                <label for="title">Title:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[title]" placeholder="Hostel Name" class="custom-input" id="title" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="forWho">For Who:</label>
+                <div class="input-area">
+                    <select name="listing[forWho]" id="forWho" required class="custom-select">
                         <option value="Boys" selected>Boys</option>
                         <option value="Girls">Girls</option>
-                </select>
-                    <div class="invalid-feedback">
-                        Please choose a category for your listing.
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="location">City:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[city]" placeholder="Listing City" class="custom-input" id="location" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="state">State:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[state]" placeholder="Listing State" class="custom-input" id="state" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="country">Address:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[address]" placeholder="Enter the full address" class="custom-input" id="country" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="nearCollege">Is your college near another college? If yes, enter the college name:</label>
+                <div class="input-area">
+                    <input class="custom-input" type="text" name="listing[nearCollege]" id="nearCollege" placeholder="College Name" value="No" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="email">Business Email:</label>
+                <div class="input-area">
+                    <input class="custom-input" type="email" name="listing[contact][email]" id="email" placeholder="Enter your business email" value="<%=currentUser.email%>" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="mobile">Primary Mobile No.:</label>
+                <div class="input-area">
+                    <input class="custom-input" type="number" name="listing[contact][mobile]" id="mobile" placeholder="Provide primary mobile no. for listing" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="price">Price:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[price]" placeholder="Set a price" class="custom-input" id="price" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="image">Image:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[image][path]" placeholder="Select an image" class="custom-input" id="image" accept=".png, .jpg, .jpeg" size="3000000" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="description">Description:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[description]" placeholder="Describe your listing" class="custom-input" id="description" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="bedrooms">Number of Bedrooms:</label>
+                <div class="input-area">
+                <input type="number" name="listing[bedrooms]" placeholder="Total number of bedrooms in hostel" id="bedrooms" class="custom-input" required>
+            </div>
+            </div>
+
+            <div class="field">
+                <label>Room Types:</label>
+                <div class="input-area checkbox-container">
+                    <div>
+                        <input type="checkbox" name="listing[roomType][Single]" value="Single" id="single">
+                        <label for="single">Single Bed</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[roomType][Double]" value="Double" id="double">
+                        <label for="double">Double Bed</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[roomType][Triple]" value="Triple" id="triple">
+                        <label for="triple">Triple Bed</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[roomType][Dormitory]" value="Dormitory" id="dormitory">
+                        <label for="dormitory">Dormitory</label>
                     </div>
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <label for="city" class="form-label">City</label>
-                    <input type="text" name="listing[city]" placeholder="Listing City" class="form-control" id="location" required> 
-                    <div class="invalid-feedback">
-                        Please specify the city.
+            <div class="field">
+                <label>Facilities:</label>
+                <div class="input-area checkbox-container">
+                    <div>
+                        <input type="checkbox" name="listing[facilities][WiFi]" value="WiFi" id="wifi">
+                        <label for="wifi">WiFi</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Parking]" value="Parking" id="parking">
+                        <label for="parking">Parking</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Heating]" value="Heating" id="heating">
+                        <label for="heating">Geyser</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Washroom]" value="Washroom" id="washroom">
+                        <label for="washroom">Attached Washroom</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Kitchen]" value="Kitchen" id="kitchen">
+                        <label for="kitchen">Kitchen</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Gym]" value="Gym" id="gym">
+                        <label for="gym">Gym</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Laundry]" value="Laundry" id="laundry">
+                        <label for="laundry">Laundry</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][AC]" value="Air Conditioning" id="airconditioning">
+                        <label for="airconditioning">Air Conditioning</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Mess]" value="Mess" id="mess">
+                        <label for="mess">Mess</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][TV]" value="TV" id="tv">
+                        <label for="tv">TV</label>
                     </div>
                 </div>
-
-                <div class="mb-3">
-                    <label for="state" class="form-label">State</label>
-                    <input type="text" name="listing[state]" placeholder="Listing State" class="form-control" id="state" required> 
-                    <div class="invalid-feedback">
-                        Please specify the state.
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="address" class="form-label">Address</label>
-                    <input type="text" name="listing[address]" placeholder="Enter the full address" class="form-control" id="country" required>
-                    <div class="invalid-feedback">
-                        Please enter the full address.
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="nearCollege" class="form-label">Is your college near another college? If yes, enter the college name</label>
-                    <input class="form-control" type="text" name="listing[nearCollege]" id="nearCollege" placeholder="College Name" value="No" required>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="email" class="form-label">Business Email</label>
-                    <input class="form-control" type="email" name="listing[contact][email]" id="email" placeholder="Enter your business email" value="<%=currentUser.email%>" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="mobile" class="form-label">Primary Mobile No.</label>
-                    <input class="form-control" type="number" name="listing[contact][mobile]" id="mobile" placeholder="Provide primary mobile no. for listing" required>
-                </div>
-        
-                <div class="mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <input type="text" name="listing[price]" placeholder="Set a price" class="form-control" id="price" required> 
-                    <div class="invalid-feedback">
-                        Please set a valid price (greater than 100).
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="image" class="form-label">Image</label>
-                    <input type="text" name="listing[image][path]" placeholder="Select an image" class="form-control" id="image" accept=".png, .jpg, .jpeg" size="3000000" required>
-                    <div class="invalid-feedback">
-                        Please upload an image for your listing.
-                    </div>
-                </div>   
-
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <input type="text" name="listing[description]" placeholder="Describe your listing" class="form-control" id="description" required>
-                    <div class="invalid-feedback">
-                        Please enter a description for your listing.
-                    </div>
-                </div>
-        
-
-                <div class="mb-3">
-                    <label class="form-label">Room Types</label>
-                    <div class="d-flex flex-wrap">
-                        <div class="form-check me-3">
-                            <label class="form-check-label" for="single">Single Bed</label>
-                            <input class="form-check-input" type="checkbox" name="listing[roomType][Single]" value="Single" id="single">
-                        </div>
-                        <div class="form-check me-3">
-                            <label class="form-check-label" for="double">Double Bed</label>
-                            <input class="form-check-input" type="checkbox" name="listing[roomType][Double]" value="Double" id="double">
-                        </div>
-                        <div class="form-check me-3">
-                            <label class="form-check-label" for="triple">Triple Bed</label>
-                            <input class="form-check-input" type="checkbox" name="listing[roomType][Triple]" value="Triple" id="triple">
-                        </div>
-                        <div class="form-check me-3">
-                            <label class="form-check-label" for="dormitory">Dormitory</label>
-                            <input class="form-check-input" type="checkbox" name="listing[roomType][Dormitory]" value="Dormitory" id="dormitory">
-                        </div>
-                    </div>
-                </div>
-                
-
-                <div class="mb-3">
-                    <label for="bedrooms" class="form-label">Number of Bedrooms</label>
-                    <input type="number" name="listing[bedrooms]" placeholder="Enter the total number of bedrooms in hostel" class="form-control" id="bedrooms" required>
-                    <div class="invalid-feedback">
-                        Please enter the number of bedrooms for your listing.
-                    </div>
-                </div>
-
-
-    <div class="mb-3">
-        <label class="form-label">Facilities</label>
-        <div class="d-flex flex-wrap">
-            <div class="form-check me-3">
-                <label class="form-check-label" for="wifi">WiFi</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][WiFi]" value="WiFi" id="wifi">
             </div>
-            <div class="form-check me-3">
-                <label class="form-check-label" for="parking">Parking</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][Parking]" value="Parking" id="parking">
-            </div>
-            <div class="form-check me-3">
-                <label class="form-check-label" for="heating">Heating</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][Heating]" value="Heating" id="heating">
-            </div>
-            <div class="form-check me-3">
-                <label class="form-check-label" for="washroom">Attached Washroom</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][Washroom]" value="Washroom" id="washroom">
-            </div>
-            <div class="form-check me-3">
-                <label class="form-check-label" for="kitchen">Kitchen</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][Kitchen]" value="Kitchen" id="kitchen">
-            </div>
-            <div class="form-check me-3">
-                <label class="form-check-label" for="gym">Gym</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][Gym]" value="Gym" id="gym">
-            </div>
-            <div class="form-check me-3">
-                <label class="form-check-label" for="laundry">Laundry</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][Laundry]" value="Laundry" id="laundry">
-            </div>
-            <div class="form-check me-3">
-                <label class="form-check-label" for="airconditioning">Air Conditioning</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][AC]" value="Air Conditioning" id="airconditioning">
-            </div>
-            <div class="form-check me-3">
-                <label class="form-check-label" for="mess">Mess</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][Mess]" value="Mess" id="mess">
-            </div>
-            <div class="form-check">
-                <label class="form-check-label" for="tv">TV</label>
-                <input class="form-check-input" type="checkbox" name="listing[facilities][TV]" value="TV" id="tv">
-            </div>
-        </div>
+
+            <button type="submit" class="custom-submit">Add</button>
+        </form>
     </div>
-    
-                <button class="btn btn-primary mb-3 mt-3 submitButton" style="border: none;">Add</button>
-            </form>
-        </div>
-    </div>
-
-</body>
+</div>

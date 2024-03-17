@@ -1,142 +1,167 @@
 <% layout("/layouts/boilerplate") -%>
 
-<div class="row mt-3">
-    <div class="col-8 offset-2">
-        <h3 class="mb-3 mt-5">Edit Listing</h3>
+<div class="d-flex justify-content-center">
+    <link rel="stylesheet" href="/css/listing.css">
+    <div class="wrapper">
+        <header class="mb-3 mt-5">Edit Listing</header>
         <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" onsubmit="disabledButton()">
 
-            <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" id="title" required>
+            <div class="field">
+                <label for="title">Title:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[title]" value="<%= listing.title %>" class="custom-input" id="title" placeholder="Hostel Name" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="forWho" class="form-label">For Who</label>
-                <select name="listing[forWho]" id="forWho" required class="form-select">
-                    <option value="Boys" <%= listing.forWho === 'Boys' ? 'selected' : '' %>>Boys</option>
-                    <option value="Girls" <%= listing.forWho === 'Girls' ? 'selected' : '' %>>Girls</option>
-                </select>
+            <div class="field">
+                <label for="forWho">For Who:</label>
+                <div class="input-area">
+                    <select name="listing[forWho]" id="forWho" required class="custom-select">
+                        <option value="Boys" <%= listing.forWho === 'Boys' ? 'selected' : '' %>>Boys</option>
+                        <option value="Girls" <%= listing.forWho === 'Girls' ? 'selected' : '' %>>Girls</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="city" class="form-label">City</label>
-                <input type="text" name="listing[city]" value="<%= listing.city %>" class="form-control" id="city" required>
+            <div class="field">
+                <label for="city">City:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[city]" value="<%= listing.city %>" class="custom-input" id="city" placeholder="Listing City" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="state" class="form-label">State</label>
-                <input type="text" name="listing[state]" value="<%= listing.state %>" class="form-control" id="state" required>
+            <div class="field">
+                <label for="state">State:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[state]" value="<%= listing.state %>" class="custom-input" id="state" placeholder="Listing State" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" name="listing[address]" value="<%= listing.address %>" class="form-control" id="address" required>
+            <div class="field">
+                <label for="address">Address:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[address]" value="<%= listing.address %>" class="custom-input" id="address" placeholder="Enter the full address" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="nearCollege" class="form-label">Is your college near another college? If yes, enter the college name</label>
-                <input class="form-control" type="text" name="listing[nearCollege]" id="nearCollege" placeholder="College Name" value="<%= listing.nearCollege %>">
+            <div class="field">
+                <label for="nearCollege">Is your college near another college? If yes, enter the college name:</label>
+                <div class="input-area">
+                    <input class="custom-input" type="text" name="listing[nearCollege]" id="nearCollege" placeholder="College Name" value="<%= listing.nearCollege %>">
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Business Email</label>
-                <input class="form-control" type="email" name="listing[contact][email]" id="email" placeholder="Enter your business email" value="<%=listing.contact.email%>" required>
+            <div class="field">
+                <label for="email">Business Email:</label>
+                <div class="input-area">
+                    <input class="custom-input" type="email" name="listing[contact][email]" id="email" placeholder="Enter your business email" value="<%= listing.contact.email %>" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="mobile" class="form-label">Primary Mobile No.</label>
-                <input class="form-control" type="number" name="listing[contact][mobile]" id="mobile" placeholder="Provide primary mobile no. for listing" value="<%=listing.contact.mobile%>" required>
+            <div class="field">
+                <label for="mobile">Primary Mobile No.:</label>
+                <div class="input-area">
+                    <input class="custom-input" type="number" name="listing[contact][mobile]" id="mobile" placeholder="Provide primary mobile no. for listing" value="<%= listing.contact.mobile %>" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="price" class="form-label">Price</label>
-                <input type="text" name="listing[price]" value="<%= listing.price %>" class="form-control" id="price" required>
+            <div class="field">
+                <label for="price">Price:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[price]" value="<%= listing.price %>" class="custom-input" id="price" placeholder="Set a price" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="image" class="form-label">Image</label>
-                <input type="text" name="listing[image][path]" value="<%= listing.image.path %>" class="form-control" id="image" accept=".png, .jpg, .jpeg" size="3000000" required>
+            <div class="field">
+                <label for="image">Image:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[image][path]" value="<%= listing.image.path %>" class="custom-input" id="image" accept=".png, .jpg, .jpeg" size="3000000" placeholder="Select an image" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <input type="text" name="listing[description]" value="<%= listing.description %>" class="form-control" id="description" required>
+            <div class="field">
+                <label for="description">Description:</label>
+                <div class="input-area">
+                    <input type="text" name="listing[description]" value="<%= listing.description %>" class="custom-input" id="description" placeholder="Describe your listing" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Room Types</label>
-                <div class="d-flex flex-wrap">
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="single">Single Bed</label>
-                        <input class="form-check-input" type="checkbox" name="listing[roomType][Single]" value="Single" id="single" <%=listing.roomType.Single ? 'checked' : "" %>>
+            <div class="field">
+                <label>Room Types:</label>
+                <div class="input-area checkbox-container">
+                    <div>
+                        <input type="checkbox" name="listing[roomType][Single]" value="Single" id="single" <%=listing.roomType.Single ? 'checked' : "" %>>
+                        <label for="single">Single Bed</label>
                     </div>
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="double">Double Bed</label>
-                        <input class="form-check-input" type="checkbox" name="listing[roomType][Double]" value="Double" id="double" <%=listing.roomType.Double ? 'checked' : "" %>>
+                    <div>
+                        <input type="checkbox" name="listing[roomType][Double]" value="Double" id="double" <%=listing.roomType.Double ? 'checked' : "" %>>
+                        <label for="double">Double Bed</label>
                     </div>
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="triple">Triple Bed</label>
-                        <input class="form-check-input" type="checkbox" name="listing[roomType][Triple]" value="Triple" id="triple" <%=listing.roomType.Triple ? 'checked' : "" %>>
+                    <div>
+                        <input type="checkbox" name="listing[roomType][Triple]" value="Triple" id="triple" <%=listing.roomType.Triple ? 'checked' : "" %>>
+                        <label for="triple">Triple Bed</label>
                     </div>
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="dormitory">Dormitory</label>
-                        <input class="form-check-input" type="checkbox" name="listing[roomType][Dormitory]" value="Dormitory" id="dormitory" <%=listing.roomType.Dormitory ? 'checked' : "" %>>
+                    <div>
+                        <input type="checkbox" name="listing[roomType][Dormitory]" value="Dormitory" id="dormitory" <%=listing.roomType.Dormitory ? 'checked' : "" %>>
+                        <label for="dormitory">Dormitory</label>
                     </div>
                 </div>
             </div>
 
-            <div class="mb-3">
-                <label for="bedrooms" class="form-label">Number of Bedrooms</label>
-                <input type="number" name="listing[bedrooms]" placeholder="Enter the total number of bedrooms in hostel" class="form-control" id="bedrooms"  value="<%=listing.bedrooms%>" required>
+            <div class="field">
+                <label for="bedrooms">Number of Bedrooms:</label>
+                <div class="input-area">
+                    <input type="number" name="listing[bedrooms]" value="<%= listing.bedrooms %>" placeholder="Enter the total number of bedrooms in hostel" class="custom-input" id="bedrooms" required>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Facilities</label>
-                <div class="d-flex flex-wrap">
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="wifi">WiFi</label>
-                        <input class="form-check-input" type="checkbox" name="listing[facilities][WiFi]" value="WiFi" id="wifi" <%=listing.facilities.WiFi ? 'checked' : '' %>>
+            <div class="field">
+                <label>Facilities:</label>
+                <div class="input-area checkbox-container">
+                    <div>
+                        <input type="checkbox" name="listing[facilities][WiFi]" value="WiFi" id="wifi" <%=listing.facilities.WiFi ? 'checked' : '' %>>
+                        <label for="wifi">WiFi</label>
                     </div>
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="parking">Parking</label>
-                        <input class="form-check-input" type="checkbox" name="listing[facilities][Parking]" value="Parking" id="parking"  <%=listing.facilities.WiFi ? 'checked' : "" %>>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Parking]" value="Parking" id="parking"  <%=listing.facilities.Parking ? 'checked' : "" %>>
+                        <label for="parking">Parking</label>
                     </div>
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="heating">Heating</label>
-                        <input class="form-check-input" type="checkbox" name="listing[facilities][Heating]" value="Heating" id="heating" <%=listing.facilities.Heating ? 'checked' : "" %>>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Heating]" value="Heating" id="heating" <%=listing.facilities.Heating ? 'checked' : "" %>>
+                        <label for="heating">Geyser</label>
                     </div>
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="washroom">Attached Washroom</label>
-                        <input class="form-check-input" type="checkbox" name="listing[facilities][Washroom]" value="Washroom" id="washroom" <%=listing.facilities.Washroom ? 'checked' : "" %>>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Washroom]" value="Washroom" id="washroom" <%=listing.facilities.Washroom ? 'checked' : "" %>>
+                        <label for="washroom">Attached Washroom</label>
                     </div>
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="kitchen">Kitchen</label>
-                        <input class="form-check-input" type="checkbox" name="listing[facilities][Kitchen]" value="Kitchen" id="kitchen"  <%=listing.facilities.Kitchen ? 'checked' : "" %>>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Kitchen]" value="Kitchen" id="kitchen"  <%=listing.facilities.Kitchen ? 'checked' : "" %>>
+                        <label for="kitchen">Kitchen</label>
                     </div>
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="gym">Gym</label>
-                        <input class="form-check-input" type="checkbox" name="listing[facilities][Gym]" value="Gym" id="gym" <%=listing.facilities.Gym ? 'checked' : "" %>>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Gym]" value="Gym" id="gym" <%=listing.facilities.Gym ? 'checked' : "" %>>
+                        <label for="gym">Gym</label>
                     </div>
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="laundry">Laundry</label>
-                        <input class="form-check-input" type="checkbox" name="listing[facilities][Laundry]" value="Laundry" id="laundry" <%=listing.facilities.Laundry ? 'checked' : "" %>>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Laundry]" value="Laundry" id="laundry" <%=listing.facilities.Laundry ? 'checked' : "" %>>
+                        <label for="laundry">Laundry</label>
                     </div>
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="airconditioning">Air Conditioning</label>
-                        <input class="form-check-input" type="checkbox" name="listing[facilities][AC]" value="Air Conditioning" id="airconditioning" <%=listing.facilities.AC ? 'checked' : "" %>>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][AC]" value="Air Conditioning" id="airconditioning" <%=listing.facilities.AC ? 'checked' : "" %>>
+                        <label for="airconditioning">Air Conditioning</label>
                     </div>
-                    <div class="form-check me-3">
-                        <label class="form-check-label" for="mess">Mess</label>
-                        <input class="form-check-input" type="checkbox" name="listing[facilities][Mess]" value="Mess" id="mess" <%=listing.facilities.Mess ? 'checked' : "" %>>
-            </div>
-                    <div class="form-check">
-                        <label class="form-check-label" for="tv">TV</label>
-                        <input class="form-check-input" type="checkbox" name="listing[facilities][TV]" value="TV" id="tv" <%=listing.facilities.TV ? 'checked' : "" %>>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][Mess]" value="Mess" id="mess" <%=listing.facilities.Mess ? 'checked' : "" %>>
+                        <label for="mess">Mess</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="listing[facilities][TV]" value="TV" id="tv" <%=listing.facilities.TV ? 'checked' : "" %>>
+                        <label for="tv">TV</label>
                     </div>
                 </div>
             </div>
 
-            <button class="btn btn-primary mb-3 submitButton" style="border: none;">Update</button>
+            <button class="custom-submit mb-3 submitButton" style="border: none;">Update</button>
         </form>
     </div>
 </div>

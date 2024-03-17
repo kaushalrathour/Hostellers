@@ -1,0 +1,76 @@
+/* Style for the wrapper */
+.wrapper {
+    width: 500px; /* Increased width for the wrapper */
+    padding: 40px 30px 50px 30px;
+    background: #fff;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 10px 10px 15px rgba(0,0,0,0.1);
+}
+
+.wrapper header {
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.field {
+    margin-bottom: 20px;
+}
+
+/* Style for the input area */
+.input-area {
+    position: relative;
+}
+
+/* Style for the input fields */
+.custom-input, .custom-select {
+    width: calc(100% - 20px);
+    height: 50px;
+    padding: 0 45px;
+    font-size: 18px;
+    background: none;
+    border: 1px solid #bfbfbf;
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+
+.custom-submit {
+    width: 100%; 
+    height: 50px;
+    margin-top: 30px;
+    color: #fff;
+    padding: 0;
+    border: none;
+    background: #5372F0;
+    cursor: pointer;
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.custom-submit:hover {
+    background: #2c52ed;
+}
+
+.field label {
+    text-align: left;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+.input-area label {
+    margin-left: 5px;
+}
+
+label {
+    font-weight: bold;
+}

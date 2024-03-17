@@ -17,8 +17,7 @@
                         <span class="badge bg-secondary"><%= listing.roomType.Triple %></span>
                         <span class="badge bg-secondary"><%= listing.roomType.Dormitory %></span>
                 </li>
-                <li class="list-group-item"><strong>Location:</strong> <%= listing.city %>, <%= listing.state %></li>
-                <li class="list-group-item"><strong>Address:</strong> <%= listing.address %></li>
+                <li class="list-group-item"><strong>Address:</strong><%= listing.address %> ,<%= listing.city %>, <%= listing.state %></li>
                 <li class="list-group-item">
                     <strong>Facilities:</strong>
                     
@@ -27,7 +26,7 @@
                         <span class="badge bg-secondary"><%= listing.facilities.Parking %></span>
                         <span class="badge bg-secondary"><%= listing.facilities.Laundry %></span>
                         <span class="badge bg-secondary"><%= listing.facilities.AC %></span>
-                        <span class="badge bg-secondary"><%= listing.facilities.Heating %></span>
+                        <span class="badge bg-secondary"><%= listing.facilities.Heating?"Geyser": ""%></span>
                         <span class="badge bg-secondary"><%= listing.facilities.Kitchen %></span>
                         <span class="badge bg-secondary"><%= listing.facilities.TV %></span>
                         <span class="badge bg-secondary"><%= listing.facilities.Mess %></span>
