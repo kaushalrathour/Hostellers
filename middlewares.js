@@ -44,12 +44,10 @@ module.exports.saveCurrentUrl = (req, res, next) => {
             next();
         } else {
             redirectUrl = req.headers.referer;
-            console.log("Else If Triggered", req.headers.referer);
             next();
         }
     } else {
         redirectUrl = req.path;
-        console.log("Else Triggered", redirectUrl);
         next();
     }
 }
@@ -62,10 +60,8 @@ module.exports.ensureListingOwner = wrapAsync(async (req, res, next) => {
         req.flash("error", "Listing Not Found In Ensuring Owner");
         res.redirect(`/${req.user.username}`);
     } else if (listing.owner.username === req.user.username) {
-        console.log("Access Given");
         next();
     } else {
-        console.log("Access Denied");
         req.flash("error", "Access Denied");
         res.redirect(`/${req.user.username}`);
     }

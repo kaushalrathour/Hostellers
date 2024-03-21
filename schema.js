@@ -29,7 +29,7 @@ module.exports.listingSchema = Joi.object({
     state: Joi.string().required(),
     address: Joi.string().required(),
     price: Joi.number().required().min(1000),
-    image: Joi.object().keys({path: Joi.string()}),
+    image: Joi.string(),
     description: Joi.string().required(),
     nearCollege: Joi.string().optional(),
     bedrooms: Joi.number().required(),

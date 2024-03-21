@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="/css/listing.css">
     <div class="wrapper">
         <header class="mb-3 mt-5">Edit Listing</header>
-        <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" onsubmit="disabledButton()">
+        <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" onsubmit="disabledButton()" enctype="multipart/form-data">
 
             <div class="field">
                 <label for="title">Title:</label>
@@ -45,7 +45,7 @@
             </div>
 
             <div class="field">
-                <label for="nearCollege">Is your college near another college? If yes, enter the college name:</label>
+                <label for="nearCollege">Is your hostel near any college? If yes, enter the college name:</label>
                 <div class="input-area">
                     <input class="custom-input" type="text" name="listing[nearCollege]" id="nearCollege" placeholder="College Name" value="<%= listing.nearCollege %>">
                 </div>
@@ -75,7 +75,7 @@
             <div class="field">
                 <label for="image">Image:</label>
                 <div class="input-area">
-                    <input type="text" name="listing[image][path]" value="<%= listing.image.path %>" class="custom-input" id="image" accept=".png, .jpg, .jpeg" size="3000000" placeholder="Select an image" required>
+                    <input type="file" name="listing[image]" class="custom-input" id="image" accept=".png, .jpg, .jpeg" size="3000000" placeholder="Select an image" required>
                 </div>
             </div>
 

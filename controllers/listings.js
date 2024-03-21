@@ -70,6 +70,8 @@ module.exports.postListings = async (req, res) => {
     let listing = req.body.listing;
     let newListing = new Listing(listing);
     newListing.owner = req.user;
+    newListing.image.path = req.file.path;
+    newListing.image.filename = req.file.filename;
     await newListing.save();
     req.flash("success", "Listing Added Successfully");
     res.redirect("/listings");
@@ -107,6 +109,7 @@ module.exports.getListingShowPage = async (req, res) => {
     } else {
         listing.views += 1;
         await listing.save();
+        console.log(listing);
         res.render("listings/show.ejs", { listing });
     }
 };
@@ -125,6 +128,10 @@ module.exports.updateListing = async (req, res) => {
     let listing = await Listing.findByIdAndUpdate(id, req.body.listing, { runValidators: true, new: true }).catch((err) => {
         console.log(err);
     });
-    console.log(`Updated Listing ${listing}`);
+    if(req.file) {
+        listing.image.path = req.file.path;
+        listing.image.filename = req.file.filename;
+        await listing.save();
+    }
     res.redirect(`/listings/${id}`);
 };

@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="/css/listing.css">
     <div class="wrapper">
         <header class="mb-3">List your hostel</header>
-        <form action="/listings" method="POST" onsubmit="return disabledButton()">  <!--enctype="multipart/form-data"-->
+        <form action="/listings" method="POST" onsubmit="return disabledButton()" enctype="multipart/form-data"> 
 
             <div class="field">
                 <label for="title">Title:</label>
@@ -44,7 +44,7 @@
             </div>
 
             <div class="field">
-                <label for="nearCollege">Is your college near another college? If yes, enter the college name:</label>
+                <label for="nearCollege">Is your hostel near any college? If yes, enter the college name:</label>
                 <div class="input-area">
                     <input class="custom-input" type="text" name="listing[nearCollege]" id="nearCollege" placeholder="College Name" value="No" required>
                 </div>
@@ -74,7 +74,7 @@
             <div class="field">
                 <label for="image">Image:</label>
                 <div class="input-area">
-                    <input type="text" name="listing[image][path]" placeholder="Select an image" class="custom-input" id="image" accept=".png, .jpg, .jpeg" size="3000000" required>
+                    <input type="file" name="listing[image]" placeholder="Select an image" class="custom-input" id="image" accept=".png, .jpg, .jpeg" size="4194304" required>
                 </div>
             </div>
 
