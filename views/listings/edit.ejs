@@ -1,6 +1,6 @@
 <% layout("/layouts/boilerplate") -%>
 
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center mb-3">
     <link rel="stylesheet" href="/css/listing.css">
     <div class="wrapper">
         <header class="mb-3 mt-5">Edit Listing</header>
@@ -10,6 +10,7 @@
                 <label for="title">Title:</label>
                 <div class="input-area">
                     <input type="text" name="listing[title]" value="<%= listing.title %>" class="custom-input" id="title" placeholder="Hostel Name" required>
+                    <i class="icon fas fa-heading"></i>
                 </div>
             </div>
 
@@ -20,6 +21,7 @@
                         <option value="Boys" <%= listing.forWho === 'Boys' ? 'selected' : '' %>>Boys</option>
                         <option value="Girls" <%= listing.forWho === 'Girls' ? 'selected' : '' %>>Girls</option>
                     </select>
+                <i class="icon fas fa-user-friends"></i>
                 </div>
             </div>
 
@@ -27,6 +29,7 @@
                 <label for="city">City:</label>
                 <div class="input-area">
                     <input type="text" name="listing[city]" value="<%= listing.city %>" class="custom-input" id="city" placeholder="Listing City" required>
+                    <i class="icon fas fa-city"></i>
                 </div>
             </div>
 
@@ -34,6 +37,7 @@
                 <label for="state">State:</label>
                 <div class="input-area">
                     <input type="text" name="listing[state]" value="<%= listing.state %>" class="custom-input" id="state" placeholder="Listing State" required>
+                    <i class="icon fas fa-map-marked-alt"></i>
                 </div>
             </div>
 
@@ -41,6 +45,7 @@
                 <label for="address">Address:</label>
                 <div class="input-area">
                     <input type="text" name="listing[address]" value="<%= listing.address %>" class="custom-input" id="address" placeholder="Enter the full address" required>
+                    <i class="icon fas fa-map-marker-alt"></i>
                 </div>
             </div>
 
@@ -48,6 +53,7 @@
                 <label for="nearCollege">Is your hostel near any college? If yes, enter the college name:</label>
                 <div class="input-area">
                     <input class="custom-input" type="text" name="listing[nearCollege]" id="nearCollege" placeholder="College Name" value="<%= listing.nearCollege %>">
+                    <i class="icon fas fa-university"></i>
                 </div>
             </div>
 
@@ -55,6 +61,7 @@
                 <label for="email">Business Email:</label>
                 <div class="input-area">
                     <input class="custom-input" type="email" name="listing[contact][email]" id="email" placeholder="Enter your business email" value="<%= listing.contact.email %>" required>
+                    <i class="icon fas fa-envelope"></i>
                 </div>
             </div>
 
@@ -62,6 +69,7 @@
                 <label for="mobile">Primary Mobile No.:</label>
                 <div class="input-area">
                     <input class="custom-input" type="number" name="listing[contact][mobile]" id="mobile" placeholder="Provide primary mobile no. for listing" value="<%= listing.contact.mobile %>" required>
+                    <i class="icon fas fa-mobile-alt"></i>
                 </div>
             </div>
 
@@ -69,6 +77,13 @@
                 <label for="price">Price:</label>
                 <div class="input-area">
                     <input type="text" name="listing[price]" value="<%= listing.price %>" class="custom-input" id="price" placeholder="Set a price" required>
+                    <i class="icon fas fa-rupee-sign"></i>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="preview-image">
+                    <img src="<%=listing.image.path%>" alt="<%=listing.image.filename%>" height="150px" width="95%" style="border-radius: 10px;">
                 </div>
             </div>
 
@@ -82,7 +97,7 @@
             <div class="field">
                 <label for="description">Description:</label>
                 <div class="input-area">
-                    <input type="text" name="listing[description]" value="<%= listing.description %>" class="custom-input" id="description" placeholder="Describe your listing" required>
+                    <textarea type="text" name="listing[description]" class="custom-input" id="description" placeholder="Describe your listing" required><%= listing.description %></textarea>
                 </div>
             </div>
 
@@ -112,6 +127,7 @@
                 <label for="bedrooms">Number of Bedrooms:</label>
                 <div class="input-area">
                     <input type="number" name="listing[bedrooms]" value="<%= listing.bedrooms %>" placeholder="Enter the total number of bedrooms in hostel" class="custom-input" id="bedrooms" required>
+                    <i class="icon fas fa-bed"></i>
                 </div>
             </div>
 

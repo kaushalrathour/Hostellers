@@ -5,7 +5,7 @@
   .wrapper{
     width: 380px;
     padding: 40px 30px 50px 30px;
-    background: #fff;
+    background: #FFF7FC;
     border-radius: 5px;
     text-align: center;
     box-shadow: 10px 10px 15px rgba(0,0,0,0.1);
@@ -43,9 +43,7 @@
   form .field.valid input{
     border-color: #5372F0;
   }
-  form .field.error input{
-    border-color: #dc3545;
-  }
+ 
   .field .input-area i{
     position: absolute;
     top: 50%;
@@ -69,17 +67,7 @@
     color: #bfbfbf;
     font-size: 17px;
   }
-  form .field .error-txt{
-    color: #dc3545;
-    text-align: left;
-    margin-top: 5px;
-  }
-  form .field .error{
-    display: none;
-  }
-  form .field.error .error{
-    display: block;
-  }
+
   .wrapper a{
     color: #5372F0;
     text-decoration: none;

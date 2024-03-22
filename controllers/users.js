@@ -53,7 +53,7 @@ module.exports.getEditForm = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
     let user = req.params.username;
-    let { username, email, name, accountType } = req.body.user;
+    let { username, email, name, accountType } = req.body;
     username = removeSpaces(username);
     let updatedUser = await User.findOneAndUpdate({ username: user },
         { $set: { username, email, name, accountType } },
