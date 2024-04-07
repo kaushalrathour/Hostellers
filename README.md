@@ -1,1 +1,42 @@
-<h1 align="center">Hostellers - Project</h1>
+<h1 align="center">Hostellers</h1>
+<p align="center">
+	<a href="https://hostellers.onrender.com" title="Live Demo"><img alt="Live Demo" src="https://github.com/kaushalrathour/Hostellers/blob/main/public/images/logo.png"/></a>
+	<a href="https://github.com/kaushalrathour/Hostellers" title="GitHub Repository"><img alt="GitHub Repository" src="https://img.shields.io/badge/GitHub-Repository-blue"/></a>
+	<a href="https://github.com/kaushalrathour/Hostellers/issues" title="Issues"><img alt="Issues" src="https://img.shields.io/github/issues/kaushalrathour/Hostellers"/></a>
+	<a href="https://github.com/kaushalrathour/Hostellers/blob/main/LICENSE" title="License"><img alt="License" src="https://img.shields.io/github/license/kaushalrathour/Hostellers"/></a>
+</p>
+
+Hostellers is an open-source platform designed specifically for students seeking hostels near their educational institutions. The platform features detailed hostel listings, pricing, facilities, and smart filtering options to revolutionize the hostel hunting experience.
+
+## Features
+
+### Listing Search
+
+- **Location-Based Search**: Search for hostels based on your current location or specify a location of your choice.
+- **College-Based Search**: Find hostels near your college or educational institution.
+- **State and City Search**: Explore hostels across different states and cities.
+
+### Smart Filtering
+
+- **Gender Filters**: Filter hostels by gender to find accommodations that suit your preferences.
+- **Facility Filters**: Filter hostels based on the facilities provided, such as Wi-Fi, meals, and more.
+
+### Detailed Listings
+
+- **Hostel Details**: View detailed information about each hostel, including pricing, facilities, and contact details.
+- **Image Gallery**: Browse through an image gallery to get a visual tour of the hostel.
+
+## Tech Stack
+
+- **Frontend**: React.js
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB Atlas
+- **Authentication**: Passport.js
+- **API Testing**: Hoppscotch
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/kaushalrathour/Hostellers.git
