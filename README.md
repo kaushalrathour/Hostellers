@@ -1,6 +1,6 @@
-<div style="display: flex; justify-content: center; align-items: center;">
-<img alt="Hostellers Logo" src="https://github.com/kaushalrathour/Hostellers/blob/main/public/images/logo.png" width="50px" height="50px">
-<h1>Hostellers</h1></div>
+
+<p align="center"><img alt="Hostellers Logo" src="https://github.com/kaushalrathour/Hostellers/blob/main/public/images/logo.png" width="50px" height="50px">
+<h1>Hostellers</h1></p>
 
 ### Hostellers is an open-source platform designed specifically for students seeking hostels near their educational institutions. The platform features detailed hostel listings, pricing, facilities, and smart filtering options to revolutionize the hostel hunting experience.
 
