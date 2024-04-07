@@ -1,12 +1,12 @@
-<h1 align="center">Hostellers</h1>
-<p align="center">
-	<a href="https://hostellers.onrender.com" title="Live Demo"><img alt="Live Demo" src="https://github.com/kaushalrathour/Hostellers/blob/main/public/images/logo.png"/></a>
-	<a href="https://github.com/kaushalrathour/Hostellers" title="GitHub Repository"><img alt="GitHub Repository" src="https://img.shields.io/badge/GitHub-Repository-blue"/></a>
-	<a href="https://github.com/kaushalrathour/Hostellers/issues" title="Issues"><img alt="Issues" src="https://img.shields.io/github/issues/kaushalrathour/Hostellers"/></a>
-	<a href="https://github.com/kaushalrathour/Hostellers/blob/main/LICENSE" title="License"><img alt="License" src="https://img.shields.io/github/license/kaushalrathour/Hostellers"/></a>
-</p>
-
+<h1 align="center"><img alt="Hostellers Logo" src="https://github.com/kaushalrathour/Hostellers/blob/main/public/images/logo.png"/ width="100px" height="100px">&nbsp;Hostellers</h1>
 Hostellers is an open-source platform designed specifically for students seeking hostels near their educational institutions. The platform features detailed hostel listings, pricing, facilities, and smart filtering options to revolutionize the hostel hunting experience.
+
+<p style="font-weight: bold;"> As a free tier the deployement goes offline after sometime make sure it is activated: &nbsp;
+	<a href="https://api.render.com/deploy/srv-cnjglfmct0pc73cb1dt0?key=gDminzcoJqo">Activatin Link</a>
+    <br><br>Click Here For: &nbsp;
+    <a href="https://hostellers.onrender.com/">Live Demo</a>
+    <br>
+</p>
 
 ## Features
 
