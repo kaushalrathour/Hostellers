@@ -31,7 +31,7 @@
 
 ## Tech Stack
 
-- **Frontend**: React.js
+- **Frontend**: EJS, JavaScript, CSS, BootStap
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB Atlas
 - **Authentication**: Passport.js
